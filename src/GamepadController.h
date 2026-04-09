@@ -1,0 +1,14 @@
+//
+// Created by Alexander on 09.04.2026.
+//
+
+#ifndef CMAKESFMLPROJECT_GAMEPADCONTROLLER_H
+#define CMAKESFMLPROJECT_GAMEPADCONTROLLER_H
+
+
+class GamepadController {
+
+};
+
+
+#endif //CMAKESFMLPROJECT_GAMEPADCONTROLLER_H

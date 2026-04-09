@@ -12,7 +12,24 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp)
+add_executable(main src/main.cpp
+        src/Pin.cpp
+        src/Pin.h
+        src/Actor.cpp
+        src/Actor.h
+        src/PreferencesLoader.cpp
+        src/PreferencesLoader.h
+        src/VehicleConstants.h
+        src/VehicleController.cpp
+        src/VehicleController.h
+        src/MovementController.cpp
+        src/MovementController.h
+        src/MovementController.h
+        src/GlobalCommand.cpp
+        src/GlobalCommand.h
+        src/GamepadController.cpp
+        src/GamepadController.h
+        src/GamepadController.h)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 
