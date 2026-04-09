@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 
+#include "DebugLauncherBuzzerTest.h"
 #include "GamepadController.h"
 
 int main()
@@ -8,7 +9,7 @@ int main()
 	sf::CircleShape shape( 100.f );
 	shape.setFillColor( sf::Color::Green );
 	GamepadController gamepad_controller;
-
+	DebugLauncherBuzzerTest debug_launcher_buzzer_test;
 	while ( window.isOpen() )
 	{
 		while ( const std::optional event = window.pollEvent() )
@@ -21,7 +22,7 @@ int main()
 			}
 
 		}
-
+		debug_launcher_buzzer_test.update(1);
 		window.clear();
 		window.draw( shape );
 		window.display();

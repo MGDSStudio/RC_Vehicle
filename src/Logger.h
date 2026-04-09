@@ -8,13 +8,12 @@
 #include <ostream>
 #include <string>
 
+static const std::string DEBUG = "DEBUG: ";
 
 class Logger {
 
 
 
-private:
-       static const std::string DEBUG = "DEBUG: ";
 
 public:
     static void debug(const std::string &text) {

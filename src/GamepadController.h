@@ -14,8 +14,10 @@ class GamepadController : public IUpdateable {
 public:
     bool attachCommand(const std::optional<sf::Event> &event);
     void update(float tpf) override;
+    void complete() override;
 private:
-    std::vector<std::optional<sf::Event>> eventsQueue = {};
+    std::queue<std::optional<sf::Event>> eventsQueue = {};
+    //std::vector<std::optional<sf::Event>> eventsQueue = {};
     //    std::vector<const std::optional<sf::Event>> eventsQueue = {};
 };
 
