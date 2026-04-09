@@ -9,12 +9,19 @@
 #include <string>
 
 class Pin {
-    //Pin()
+public:
+    Pin(int number){
+        this->hardwareNumber = number;
+        this->numberAsString = std::to_string(number);
+    }
+    ~Pin();
+    virtual void setValue(float value) = 0;
+    virtual void enable(bool flag) = 0;
 
-private:
-    int rpiNumber;
+protected:
+    int hardwareNumber;
     std::string name;
-
+    std::string numberAsString;
 };
 
 

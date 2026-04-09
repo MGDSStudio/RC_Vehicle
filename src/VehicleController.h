@@ -6,7 +6,7 @@
 #define CMAKESFMLPROJECT_VEHICLECONTROLLER_H
 
 
-#include "Actor.h"
+#include "SinglePinActor.h"
 
 class VehicleController {
 

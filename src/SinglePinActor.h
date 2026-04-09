@@ -8,11 +8,10 @@
 
 #include "Pin.h"
 
-class Actor {
+class SinglePinActor {
 
 private:
-    Pin pinForward;
-    Pin pinBackward;
+    Pin* pinForward;
     float direction;
 };
 

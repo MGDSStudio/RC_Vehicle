@@ -20,6 +20,11 @@ public:
         const std::string message = DEBUG+text;
         std::cout << message << std::endl;
     }
+
+    static void custom(const std::string &prefix, const std::string &text) {
+        const std::string message = prefix+text;
+        std::cout << message << std::endl;
+    }
 };
 
 

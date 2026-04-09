@@ -7,14 +7,14 @@
 #define CMAKESFMLPROJECT_MOVEMENTCONTROLLER_H
 
 
-#include "Actor.h"
+#include "SinglePinActor.h"
 
 class MovementController {
 private:
-    Actor* wheelForwardLeft;
-    Actor* wheelForwardRight;
-    Actor* wheelBackwardLeft;
-    Actor* wheelBackwardRight;
+    SinglePinActor* wheelForwardLeft;
+    SinglePinActor* wheelForwardRight;
+    SinglePinActor* wheelBackwardLeft;
+    SinglePinActor* wheelBackwardRight;
 };
 
 

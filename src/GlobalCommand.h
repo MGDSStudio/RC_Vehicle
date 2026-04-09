@@ -5,18 +5,22 @@
 #ifndef CMAKESFMLPROJECT_GLOBALCOMMAND_H
 #define CMAKESFMLPROJECT_GLOBALCOMMAND_H
 
-enum class Prefix{
+#include "GlobalCommandPrefix.h"
+
+/*enum class Prefix{
     FORWARD, BACKWARD, LEFT, RIGHT, NOISE
-};
+};*/
 class GlobalCommand {
 
 public:
-    Prefix getPrefix() const;
+    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, float param);
+
+    GlobalCommandPrefix getPrefix() const;
 
     float getValue() const;
 
 private:
-    Prefix prefix;
+    GlobalCommandPrefix prefix;
     float value;
 };
 

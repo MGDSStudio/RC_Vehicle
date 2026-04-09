@@ -13,10 +13,9 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(main src/main.cpp
-        src/Pin.cpp
         src/Pin.h
-        src/Actor.cpp
-        src/Actor.h
+        src/SinglePinActor.cpp
+        src/SinglePinActor.h
         src/PreferencesLoader.cpp
         src/PreferencesLoader.h
         src/VehicleConstants.h
@@ -34,7 +33,16 @@ add_executable(main src/main.cpp
         src/Constants.h
         src/Logger.h
         src/DebugLauncherBuzzerTest.cpp
-        src/DebugLauncherBuzzerTest.h)
+        src/DebugLauncherBuzzerTest.h
+        src/WheelActor.cpp
+        src/WheelActor.h
+        src/GlobalCommandPrefix.h
+        src/SoftwarePin.cpp
+        src/SoftwarePin.h
+        src/SoftwarePin.cpp
+        src/HardwarePin.cpp
+        src/HardwarePin.h
+        src/HardwarePin.h)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 
