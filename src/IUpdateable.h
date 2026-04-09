@@ -8,8 +8,8 @@
 
 class IUpdateable {
 public:
-    void update(float tpf);
-    void complete();
+    virtual void update(float tpf);
+    virtual void complete();
 };
 
 
