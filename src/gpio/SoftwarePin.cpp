@@ -6,6 +6,14 @@
 #include "SoftwarePin.h"
 #include "../Logger.h"
 
+/*SoftwarePin::SoftwarePin(int pinNumber) : Pin(pinNumber){
+        
+};*/
+
+/*SoftwarePin::~SoftwarePin(){
+
+
+}*/
 
 void SoftwarePin::setValue(float value) {
     std::string text = numberAsString+ " is set value: "+ std::to_string(value);

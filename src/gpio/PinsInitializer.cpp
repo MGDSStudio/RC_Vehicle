@@ -3,7 +3,6 @@
 //
 
 #include "PinsInitializer.h"
-
 #include <iosfwd>
 #include <iostream>
 
@@ -18,19 +17,33 @@ void PinsInitializer::init() {
         std::cerr << "Can not load file!" << std::endl;
         return;
     }
-
     try {
         json data;
         file >> data;
         int number;
         constexpr auto pinActionNames = magic_enum::enum_names<PinActionName>();
-        //std::string name = data["name"];
-        int version = data["LEFT_FRONT_WHEEL_FORWARD"];
-        std::cout << "Name: " << "LEFT_FRONT_WHEEL_FORWARD" << ", number: " << version << std::endl;
-
-    } catch (json::parse_error& e) {
+        for (auto nameView: pinActionNames){           
+            std::string name{nameView};
+            addInMap(name, &data);
+        }
+    } 
+    catch (json::parse_error& e) {
         std::cerr << "Parsing error: " << e.what() << std::endl;
     }
-
     initialized = true;
 }
+
+void PinsInitializer::addInMap(const std::string name, json* data){
+    auto pinActionEnum = magic_enum::enum_cast<PinActionName>(name);    
+    if (pinActionEnum.has_value()){        
+        int pinNumber = data->at(name).get<int>();
+        pins.emplace(pinActionEnum.value(), pinNumber);
+        std::string numberAsString = std::to_string(pinNumber);
+        Logger::debug(name + " added data in map for PIN " + numberAsString + "; In map: " + std::to_string(pins.size()));
+    }
+    else {
+        Logger::debug("Wrong data in JSON");
+    }
+}
+
+

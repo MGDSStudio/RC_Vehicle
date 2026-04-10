@@ -9,6 +9,13 @@
 
 class SoftwarePin : public Pin{
 
+    public:    
+    SoftwarePin(int pinNumber) : Pin(pinNumber){
+
+    };
+    virtual ~SoftwarePin() override{
+        
+    }
     void setValue(float value) override;
     void enable(bool flag) override;
 

@@ -15,6 +15,7 @@ using json = nlohmann::json;
 #include "PinActionName.h"
 #include "../Constants.h"
 #include "magic_enum/magic_enum.hpp"
+#include "../Logger.h"
 
 class PinsInitializer {
 
@@ -22,8 +23,11 @@ public:
     std::pmr::unordered_map<PinActionName, int>* getPins();
 
 private:
-    const std::filesystem::path PATH = Constants::PATH_TO_DATA / "gpio.json";
+    
     void init();
+    void addInMap(std::string name, json* data);
+
+    const std::filesystem::path PATH = Constants::PATH_TO_DATA / "gpio.json";
     std::pmr::unordered_map<PinActionName, int> pins;
     bool initialized = false;
 };

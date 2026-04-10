@@ -6,6 +6,10 @@
 
 
 WheelActor::WheelActor(Pin *pinForward, Pin *pinBackward) : pinForward(pinForward), pinBackward(pinBackward) {
+    
+}
+
+WheelActor::WheelActor() {
 
 }
 
@@ -24,4 +28,12 @@ void WheelActor::stop() {
     pinForward->enable(false);
     pinBackward->enable(false);
     this->direction = 0;
+}
+
+void WheelActor::setPinForward(Pin* pin){
+    this->pinForward = pin;
+}
+
+void WheelActor::setPinBackward(Pin* pin){
+    this->pinBackward = pin;
 }

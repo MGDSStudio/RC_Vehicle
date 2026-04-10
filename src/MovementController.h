@@ -8,17 +8,20 @@
 
 
 #include "SinglePinActor.h"
+#include "WheelActor.h"
+#include "gpio/SoftwarePin.h"
 
 class MovementController {
 
 public:
     MovementController();
+    void update();
 
 private:
-    SinglePinActor* wheelForwardLeft;
-    SinglePinActor* wheelForwardRight;
-    SinglePinActor* wheelBackwardLeft;
-    SinglePinActor* wheelBackwardRight;
+    WheelActor wheelForwardLeft;
+    WheelActor wheelForwardRight;
+    WheelActor wheelBackwardLeft;
+    WheelActor wheelBackwardRight;
 };
 
 

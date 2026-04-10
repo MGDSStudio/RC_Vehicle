@@ -10,6 +10,16 @@
 
 class SinglePinActor {
 
+public:
+    SinglePinActor(Pin* pinForward){
+        
+    }
+
+    ~SinglePinActor(){
+        this->pinForward = nullptr;
+    }
+
+
 private:
     Pin* pinForward;
     float direction;

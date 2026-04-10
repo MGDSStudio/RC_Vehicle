@@ -12,18 +12,21 @@ class WheelActor{
 
 public:
     WheelActor(Pin *pinForward, Pin *pinBackward);
+    WheelActor();
 
     ~WheelActor(){
         pinForward = nullptr;
         pinBackward = nullptr;
     }
+    void setPinForward(Pin* pin);
+    void setPinBackward(Pin* pin);
     void setForward(float relativeValue);
     void setBackward(float relativeValue);
     void stop();
 
 private:
-    Pin* pinForward;
-    Pin* pinBackward;
+    Pin* pinForward = nullptr;
+    Pin* pinBackward = nullptr;
     float direction;
 };
 

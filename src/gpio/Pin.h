@@ -14,7 +14,7 @@ public:
         this->hardwareNumber = number;
         this->numberAsString = std::to_string(number);
     }
-    ~Pin();
+    virtual ~Pin() = default;
     virtual void setValue(float value) = 0;
     virtual void enable(bool flag) = 0;
 
