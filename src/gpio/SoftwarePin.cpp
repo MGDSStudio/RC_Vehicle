@@ -3,8 +3,8 @@
 //
 
 
-#include "SoftwarePin.h"
-#include "Logger.h"
+#include "../SoftwarePin.h"
+#include "../Logger.h"
 
 
 void SoftwarePin::setValue(float value) {
