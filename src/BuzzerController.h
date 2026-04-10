@@ -1,0 +1,13 @@
+//
+// Created by gorod on 10.04.2026.
+//
+
+#ifndef CMAKESFMLPROJECT_BUZZERCONTROLLER_H
+#define CMAKESFMLPROJECT_BUZZERCONTROLLER_H
+
+
+class BuzzerController {
+};
+
+
+#endif //CMAKESFMLPROJECT_BUZZERCONTROLLER_H
