@@ -9,10 +9,26 @@ GlobalCommandPrefix GlobalCommand::getPrefix() const {
 }
 
 float GlobalCommand::getValue() const {
-    return value;
+    return floatValue;
 }
 
 GlobalCommand::GlobalCommand(GlobalCommandPrefix globalCommandPrefix, float param) {
     this->prefix = globalCommandPrefix;
-    this->value = param;
+    this->floatValue = param;
+}
+
+GlobalCommand::GlobalCommand() {
+
+}
+
+void GlobalCommand::setFloatValue(float value) {
+    this->floatValue = value;
+}
+
+void GlobalCommand::setPrefix(GlobalCommandPrefix globalCommandPrefix) {
+    this->prefix = prefix;
+}
+
+void GlobalCommand::setIntValue(int value) {
+    this->intValue = value;
 }

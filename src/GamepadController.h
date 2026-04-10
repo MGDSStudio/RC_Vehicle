@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include "SFML/Window/Event.hpp"
 #include "IUpdateable.h"
+#include "GlobalCommandPrefix.h"
 
 class GamepadController : public IUpdateable {
 public:
@@ -19,6 +20,7 @@ private:
     std::queue<std::optional<sf::Event>> eventsQueue = {};
     //std::vector<std::optional<sf::Event>> eventsQueue = {};
     //    std::vector<const std::optional<sf::Event>> eventsQueue = {};
+    GlobalCommandPrefix getPrefixForButton(unsigned int i);
 };
 
 

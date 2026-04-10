@@ -3,3 +3,25 @@
 //
 
 #include "WheelActor.h"
+
+
+WheelActor::WheelActor(Pin *pinForward, Pin *pinBackward) : pinForward(pinForward), pinBackward(pinBackward) {
+
+}
+
+
+void WheelActor::setForward(float relativeValue) {
+    pinForward->setValue(relativeValue);
+    this->direction = relativeValue;
+}
+
+void WheelActor::setBackward(float relativeValue) {
+    pinBackward->setValue(relativeValue);
+    this->direction = relativeValue;
+}
+
+void WheelActor::stop() {
+    pinForward->enable(false);
+    pinBackward->enable(false);
+    this->direction = 0;
+}

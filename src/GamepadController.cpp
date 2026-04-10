@@ -5,6 +5,7 @@
 #include "GamepadController.h"
 #include "Constants.h"
 #include "Logger.h"
+#include "GlobalCommand.h"
 
 
 bool GamepadController::attachCommand(const std::optional<sf::Event> &event) {
@@ -31,9 +32,15 @@ bool GamepadController::attachCommand(const std::optional<sf::Event> &event) {
 void GamepadController::update(float tpf) {
     if (!eventsQueue.empty()) {
         while (!eventsQueue.empty()) {
+            GlobalCommand globalCommand;
             auto event = eventsQueue.front();
-            if (event->is<sf::Event::JoystickButtonPressed>()) {
-
+            if (const auto* buttonPressed = event->getIf<sf::Event::JoystickButtonPressed>()) {
+                unsigned int button = buttonPressed->button;
+                //unsigned int id = buttonPressed->joystickId;
+                GlobalCommandPrefix globalCommandPrefix = getPrefixForButton(button);
+                //globalCommand.setIntValue((int)button);
+                globalCommand.setPrefix(globalCommandPrefix);
+                globalCommand.setFloatValue(Constants::MAX_ANALOG_VALUE);
             }
             else if (event->is<sf::Event::JoystickMoved>()) {
 
@@ -52,4 +59,8 @@ void GamepadController::update(float tpf) {
 
 void GamepadController::complete() {
 
+}
+
+GlobalCommandPrefix GamepadController::getPrefixForButton(unsigned int buttonCode) {
+    return GlobalCommandPrefix::RIGHT;
 }

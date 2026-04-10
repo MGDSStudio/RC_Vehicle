@@ -11,6 +11,8 @@
 class WheelActor{
 
 public:
+    WheelActor(Pin *pinForward, Pin *pinBackward);
+
     ~WheelActor(){
         pinForward = nullptr;
         pinBackward = nullptr;
