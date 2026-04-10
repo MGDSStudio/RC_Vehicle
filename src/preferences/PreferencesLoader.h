@@ -5,7 +5,10 @@
 
 #ifndef CMAKESFMLPROJECT_PREFERENCESLOADER_H
 #define CMAKESFMLPROJECT_PREFERENCESLOADER_H
-
+#include <nlohmann/json.hpp>
+#include <iostream>
+#include <fstream>
+using json = nlohmann::json;
 
 class PreferencesLoader {
 

@@ -10,6 +10,10 @@
 #include "SinglePinActor.h"
 
 class MovementController {
+
+public:
+    MovementController();
+
 private:
     SinglePinActor* wheelForwardLeft;
     SinglePinActor* wheelForwardRight;

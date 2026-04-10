@@ -6,7 +6,7 @@
 #define RC_VEHICLE_WHEEL_H
 
 
-#include "Pin.h"
+#include "gpio/Pin.h"
 
 class SinglePinActor {
 

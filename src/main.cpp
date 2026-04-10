@@ -1,10 +1,18 @@
 #include <SFML/Graphics.hpp>
 
 #include "DebugLauncherBuzzerTest.h"
+#include "MovementController.h"
 #include "gamepad/GamepadController.h"
+#include "preferences/PreferencesLoader.h"
+
+void testJsonParser();
+
+
 
 int main()
 {
+	//testJsonParser();
+	MovementController movement_controller;
 	sf::RenderWindow window( sf::VideoMode( { 200, 200 } ), "SFML works!" );
 	sf::CircleShape shape( 100.f );
 	shape.setFillColor( sf::Color::Green );
@@ -28,3 +36,8 @@ int main()
 		window.display();
 	}
 }
+
+/*void testJsonParser() {
+	PreferencesLoader preferences_loader;
+	preferences_loader.load();
+}*/

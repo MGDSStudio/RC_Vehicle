@@ -3,7 +3,7 @@
 //
 
 
-#include "../SoftwarePin.h"
+#include "SoftwarePin.h"
 #include "../Logger.h"
 
 

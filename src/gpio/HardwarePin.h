@@ -5,7 +5,7 @@
 #ifndef CMAKESFMLPROJECT_HARDWAREPIN_H
 #define CMAKESFMLPROJECT_HARDWAREPIN_H
 
-#include "../Pin.h"
+#include "Pin.h"
 
 
 class HardwarePin : public Pin{

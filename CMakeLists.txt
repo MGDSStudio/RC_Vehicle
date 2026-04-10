@@ -4,6 +4,7 @@ project(CMakeSFMLProject LANGUAGES CXX)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include(FetchContent)
+include_directories(include)
 FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG 3.0.2
@@ -12,8 +13,31 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
+if(EXISTS "/proc/device-tree/model")
+    file(READ "/proc/device-tree/model" DEVICE_MODEL)
+    if(DEVICE_MODEL MATCHES "Raspberry Pi")
+        set(IS_RPI TRUE)
+    endif()
+endif()
+
+# 2. Если это Pi, ищем и подключаем библиотеки
+if(IS_RPI)
+    message(STATUS "Configuring for Raspberry Pi...")
+
+    # Ищем pigpio (она должна быть установлена в системе: sudo apt install pigpio)
+    find_library(PIGPIO_LIB pigpio)
+
+    if(PIGPIO_LIB)
+        target_link_libraries(${PROJECT_NAME} PRIVATE ${PIGPIO_LIB})
+        # Добавляем макрос для кода, чтобы можно было использовать #ifdef RPI_BUILD
+        target_compile_definitions(${PROJECT_NAME} PRIVATE RPI_BUILD)
+    else()
+        message(WARNING "pigpio not found! GPIO features might not work.")
+    endif()
+endif()
+
 add_executable(main src/main.cpp
-        src/Pin.h
+        src/gpio/Pin.h
         src/SinglePinActor.cpp
         src/SinglePinActor.h
         src/preferences/PreferencesLoader.cpp
@@ -37,18 +61,26 @@ add_executable(main src/main.cpp
         src/WheelActor.cpp
         src/WheelActor.h
         src/GlobalCommandPrefix.h
-        src/SoftwarePin.cpp
-        src/SoftwarePin.h
-        src/SoftwarePin.cpp
-        src/HardwarePin.cpp
-        src/HardwarePin.h
-        src/HardwarePin.h
+        src/gpio/SoftwarePin.cpp
+        src/gpio/SoftwarePin.h
+        src/gpio/SoftwarePin.cpp
+        src/gpio/HardwarePin.cpp
+        src/gpio/HardwarePin.h
+        src/gpio/HardwarePin.h
         src/main.cpp
         src/main.cpp
         src/gamepad/GamepadDataStruct.cpp
         src/gamepad/GamepadDataStruct.h
-        src/gamepad/GamepadDataStruct.h)
+        src/gamepad/GamepadDataStruct.h
+        src/gpio/PinsInitializer.cpp
+        src/gpio/PinsInitializer.h
+        src/gpio/PinActionName.h)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
-
+add_custom_command(TARGET main POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/data"
+        "$<TARGET_FILE_DIR:main>/data"
+        COMMENT "Data copy in the output dir..."
+)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT main)

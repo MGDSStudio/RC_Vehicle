@@ -1,0 +1,7 @@
+{
+  "buzzer": 0,
+  "gripperPress": 4,
+  "gripperRelease": 5,
+  "gripperUp": 2,
+  "gripperDown": 3
+}
