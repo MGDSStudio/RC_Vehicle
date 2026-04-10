@@ -10,7 +10,7 @@
 
 class GamepadDataStruct {
 private:
-    std::unordered_map buttonsMap;
+    std::unordered_map <std::string, int> buttonsMap;
 };
 
 
