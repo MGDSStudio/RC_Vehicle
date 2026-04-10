@@ -3,3 +3,13 @@
 //
 
 #include "BuzzerController.h"
+
+#include "gpio/PinsInitializer.h"
+
+void BuzzerController::init() {
+    PinsInitializer pins_initializer;
+    pins_initializer.getPins();
+
+}
+
+

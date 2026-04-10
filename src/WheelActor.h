@@ -15,8 +15,8 @@ public:
     WheelActor();
 
     ~WheelActor(){
-        pinForward = nullptr;
-        pinBackward = nullptr;
+        delete pinForward;
+        delete pinBackward;
     }
     void setPinForward(Pin* pin);
     void setPinBackward(Pin* pin);

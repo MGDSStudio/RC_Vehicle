@@ -6,6 +6,8 @@
 #include <iosfwd>
 #include <iostream>
 
+bool PinsInitializer::initialized = false;
+
 std::pmr::unordered_map<PinActionName, int> * PinsInitializer::getPins() {
     if (!initialized) init();
     return &pins;
@@ -18,7 +20,7 @@ void PinsInitializer::init() {
         return;
     }
     try {
-        json data;
+        nlohmann::json data;
         file >> data;
         int number;
         constexpr auto pinActionNames = magic_enum::enum_names<PinActionName>();
@@ -27,13 +29,13 @@ void PinsInitializer::init() {
             addInMap(name, &data);
         }
     } 
-    catch (json::parse_error& e) {
+    catch (nlohmann::json::parse_error& e) {
         std::cerr << "Parsing error: " << e.what() << std::endl;
     }
     initialized = true;
 }
 
-void PinsInitializer::addInMap(const std::string name, json* data){
+void PinsInitializer::addInMap(const std::string name, nlohmann::json* data){
     auto pinActionEnum = magic_enum::enum_cast<PinActionName>(name);    
     if (pinActionEnum.has_value()){        
         int pinNumber = data->at(name).get<int>();

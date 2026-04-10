@@ -10,7 +10,6 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <filesystem>
-using json = nlohmann::json;
 
 #include "PinActionName.h"
 #include "../Constants.h"
@@ -23,13 +22,12 @@ public:
     std::pmr::unordered_map<PinActionName, int>* getPins();
 
 private:
-    
     void init();
-    void addInMap(std::string name, json* data);
+    void addInMap(std::string name, nlohmann::json* data);
 
     const std::filesystem::path PATH = Constants::PATH_TO_DATA / "gpio.json";
     std::pmr::unordered_map<PinActionName, int> pins;
-    bool initialized = false;
+    static bool initialized;
 };
 
 

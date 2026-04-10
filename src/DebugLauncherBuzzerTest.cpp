@@ -13,15 +13,19 @@ void DebugLauncherBuzzerTest::update(float tpf) {
         if (statement == Statement::DISABLED) {
             Logger::debug("Buzzer enabled");
             statement = Statement::ENABLED;
+            GlobalCommand globalCommand(GlobalCommandPrefix::NOISE, true);
+            GlobalCommandsListenersObserverSingleton::getInstance().broadcast(globalCommand);
         }
     }
     if (elapsed.asSeconds() >= 5.0f) {
         Logger::debug("Buzzer disabled");
         clock.restart();
         statement = Statement::DISABLED;
+        GlobalCommand globalCommand(GlobalCommandPrefix::NOISE, false);
+        GlobalCommandsListenersObserverSingleton::getInstance().broadcast(globalCommand);
     }
 }
 
 void DebugLauncherBuzzerTest::complete() {
-
+    
 }

@@ -15,7 +15,11 @@ class GlobalCommand {
 public:
     GlobalCommand();
 
-    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, float param);
+    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, int intParam, float floatParam);
+
+    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, int param);
+
+    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, bool enabled);
 
     GlobalCommandPrefix getPrefix() const;
 
@@ -27,10 +31,20 @@ public:
 
     void setIntValue(int value);
 
+    int getId();
+
+    bool getBool();
+
 private:
     GlobalCommandPrefix prefix;
     float floatValue;
     int intValue;
+    bool boolValue;
+    int id;
+
+    static int counter;
+
+    void setId();
 };
 
 

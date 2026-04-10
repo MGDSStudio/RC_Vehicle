@@ -74,7 +74,14 @@ add_executable(main src/main.cpp
         src/gamepad/GamepadDataStruct.h
         src/gpio/PinsInitializer.cpp
         src/gpio/PinsInitializer.h
-        src/gpio/PinActionName.h)
+        src/gpio/PinActionName.h
+        src/GlobalCommandsListenersObserverSingleton.cpp
+        src/GlobalCommandsListenersObserverSingleton.h
+        src/GlobalCommandsListener.cpp
+        src/GlobalCommandsListener.h
+        src/BuzzerController.cpp
+        src/BuzzerController.h
+)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 add_custom_command(TARGET main POST_BUILD

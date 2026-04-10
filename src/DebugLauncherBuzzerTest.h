@@ -6,6 +6,8 @@
 #define CMAKESFMLPROJECT_DEBUGLAUNCHER1_H
 #include "IUpdateable.h"
 #include "SFML/System/Clock.hpp"
+#include "GlobalCommand.h"
+#include "GlobalCommandsListenersObserverSingleton.h"
 
 enum class Statement {
     DISABLED, ENABLED

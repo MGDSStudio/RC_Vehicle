@@ -3,3 +3,7 @@
 //
 
 #include "GlobalCommandsListener.h"
+
+void GlobalCommandsListener::onCommandReceived(GlobalCommand& global_command){
+    
+}
