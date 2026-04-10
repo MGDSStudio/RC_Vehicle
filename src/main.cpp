@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "DebugLauncherBuzzerTest.h"
-#include "GamepadController.h"
+#include "gamepad/GamepadController.h"
 
 int main()
 {

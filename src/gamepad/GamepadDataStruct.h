@@ -6,11 +6,13 @@
 #define CMAKESFMLPROJECT_GAMEPADDATASTRUCT_H
 
 
+#include <string>
 #include <unordered_map>
 
 class GamepadDataStruct {
 private:
     std::unordered_map <std::string, int> buttonsMap;
+    std::unordered_map <std::string, int> axesMap;
 };
 
 

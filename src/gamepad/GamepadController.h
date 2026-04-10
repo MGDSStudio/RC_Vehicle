@@ -8,8 +8,8 @@
 #include <queue>
 #include <SFML/Graphics.hpp>
 #include "SFML/Window/Event.hpp"
-#include "IUpdateable.h"
-#include "GlobalCommandPrefix.h"
+#include "../IUpdateable.h"
+#include "../GlobalCommandPrefix.h"
 
 class GamepadController : public IUpdateable {
 public:

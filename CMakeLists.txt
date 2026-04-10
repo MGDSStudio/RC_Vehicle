@@ -16,8 +16,8 @@ add_executable(main src/main.cpp
         src/Pin.h
         src/SinglePinActor.cpp
         src/SinglePinActor.h
-        src/PreferencesLoader.cpp
-        src/PreferencesLoader.h
+        src/preferences/PreferencesLoader.cpp
+        src/preferences/PreferencesLoader.h
         src/VehicleConstants.h
         src/VehicleController.cpp
         src/VehicleController.h
@@ -26,9 +26,9 @@ add_executable(main src/main.cpp
         src/MovementController.h
         src/GlobalCommand.cpp
         src/GlobalCommand.h
-        src/GamepadController.cpp
-        src/GamepadController.h
-        src/GamepadController.h
+        src/gamepad/GamepadController.cpp
+        src/gamepad/GamepadController.h
+        src/gamepad/GamepadController.h
         src/IUpdateable.h
         src/Constants.h
         src/Logger.h
@@ -45,9 +45,9 @@ add_executable(main src/main.cpp
         src/HardwarePin.h
         src/main.cpp
         src/main.cpp
-        src/GamepadDataStruct.cpp
-        src/GamepadDataStruct.h
-        src/GamepadDataStruct.h)
+        src/gamepad/GamepadDataStruct.cpp
+        src/gamepad/GamepadDataStruct.h
+        src/gamepad/GamepadDataStruct.h)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 

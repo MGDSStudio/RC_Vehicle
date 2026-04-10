@@ -12,7 +12,6 @@ void DebugLauncherBuzzerTest::update(float tpf) {
     if (elapsed.asSeconds() >= 4.0f) {
         if (statement == Statement::DISABLED) {
             Logger::debug("Buzzer enabled");
-
             statement = Statement::ENABLED;
         }
     }

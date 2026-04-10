@@ -3,9 +3,9 @@
 //
 
 #include "GamepadController.h"
-#include "Constants.h"
-#include "Logger.h"
-#include "GlobalCommand.h"
+#include "../Constants.h"
+#include "../Logger.h"
+#include "../GlobalCommand.h"
 
 
 bool GamepadController::attachCommand(const std::optional<sf::Event> &event) {
