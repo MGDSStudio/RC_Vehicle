@@ -7,7 +7,7 @@
 #define CMAKESFMLPROJECT_BUZZERCONTROLLER_H
 #include "GlobalCommandsListener.h"
 #include "IUpdateable.h"
-#include "SinglePinActor.h"
+#include "gpio/SinglePinActor.h"
 #include "gpio/SoftwarePin.h"
 #include "gpio/PinsInitializer.h"
 #include "GlobalCommandPrefix.h"

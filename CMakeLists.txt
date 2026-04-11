@@ -38,8 +38,8 @@ endif()
 
 add_executable(main src/main.cpp
         src/gpio/Pin.h
-        src/SinglePinActor.cpp
-        src/SinglePinActor.h
+        src/gpio/SinglePinActor.cpp
+        src/gpio/SinglePinActor.h
         src/preferences/PreferencesLoader.cpp
         src/preferences/PreferencesLoader.h
         src/VehicleConstants.h
@@ -92,11 +92,9 @@ add_executable(main src/main.cpp
         src/gpio/PinCommon.cpp
         src/gpio/PinCommon.h
         src/gpio/PinCommon.h
-        src/gamepad/GamepadConfigLoader.cpp
-        src/gamepad/GamepadConfigLoader.h
         src/gamepad/InputKeys.h
-        src/gamepad/GamepadMappingDataStruct.cpp
-        src/gamepad/GamepadMappingDataStruct.h
+        src/GeometrieLibrary.h
+        src/gamepad/GamepadInputNames.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

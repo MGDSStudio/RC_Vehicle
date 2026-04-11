@@ -7,7 +7,10 @@
 
 
 enum class GlobalCommandPrefix {
-    FORWARD, BACKWARD, LEFT, RIGHT, NOISE
+    MOVEMENT, ROTATION, NOISE, NO_DATA
+//FORWARD, BACKWARD, LEFT, RIGHT, NOISE, NO_DATA
+
+
 };
 
 

@@ -28,7 +28,7 @@ void GlobalCommandsListenersObserverSingleton::unsubscribe(GlobalCommandsListene
 }
 
 void GlobalCommandsListenersObserverSingleton::broadcast(GlobalCommand &global_command) const {
-    for (auto listener : listeners) {
+    for (const auto listener : listeners) {
         listener->onCommandReceived(global_command);
     }
 }

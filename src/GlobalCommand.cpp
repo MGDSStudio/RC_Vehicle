@@ -35,7 +35,7 @@ GlobalCommandPrefix GlobalCommand::getPrefix() const {
     return prefix;
 }
 
-float GlobalCommand::getValue() const {
+float GlobalCommand::getFloatValue() const {
     return floatValue;
 }
 
@@ -44,12 +44,12 @@ bool GlobalCommand::getBool(){
 }
 
 
-void GlobalCommand::setFloatValue(float value) {
+void GlobalCommand::setFloatValue(const float value) {
     this->floatValue = value;
 }
 
 void GlobalCommand::setPrefix(GlobalCommandPrefix globalCommandPrefix) {
-    this->prefix = prefix;
+    this->prefix = globalCommandPrefix;
 }
 
 void GlobalCommand::setIntValue(int value) {

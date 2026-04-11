@@ -29,5 +29,9 @@ void SoftwarePin::complete(){
 }
 
 SoftwarePin::~SoftwarePin() {
+    
+}
+
+SoftwarePin::SoftwarePin(int pinNumber)  : Pin(pinNumber){
 
 }

@@ -9,33 +9,33 @@
 #include <string>
 
 static const std::string DEBUG = "DEBUG: ";
+static const std::string ERROR = "ERROR: ";
 
 class Logger {
 
 public:
     static void debug(const std::string &text) {
-        int messageNumber = messageCounter;
-        messageNumber++;
-        const std::string message = std::to_string(messageNumber)+' '+DEBUG+text;
+        const std::string message = std::to_string(getMessageNumber())+' '+DEBUG+text;
         std::cout << message << std::endl;
     }
 
     static void custom(const std::string &prefix, const std::string &text) {
-        int messageNumber = messageCounter;
-        messageNumber++;
-        const std::string message =  std::to_string(messageNumber)+' '+prefix+text;
+        const std::string message =  std::to_string(getMessageNumber())+' '+prefix+text;
         std::cout << message << std::endl;
     }
 
 
-    static void criticalError(const std::string &prefix, const std::string &text) {
-        int messageNumber = messageCounter;
-        messageNumber++;
-        const std::string message =  std::to_string(messageNumber)+' '+prefix+text;
+    static void criticalError( const std::string &text) {
+        const std::string message =  std::to_string(getMessageNumber())+' '+ERROR+text;
         std::cerr << message << std::endl;
     }
 private:
     inline static int messageCounter = 0;
+    static int getMessageNumber() {
+        const int messageNumber = messageCounter;
+        messageCounter++;
+        return messageNumber;
+    }
 };
 
 

@@ -6,7 +6,7 @@
 #define CMAKESFMLPROJECT_WHEELACTOR_H
 
 
-#include "SinglePinActor.h"
+#include "gpio/SinglePinActor.h"
 
 class WheelActor{
 

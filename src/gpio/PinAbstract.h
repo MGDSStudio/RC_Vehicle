@@ -24,7 +24,6 @@ protected:
     std::string numberAsString;
 };
 
-};
 
 
 #endif //CMAKESFMLPROJECT_PINABSTRACT_H

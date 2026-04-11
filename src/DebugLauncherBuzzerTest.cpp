@@ -8,7 +8,7 @@
 
 void DebugLauncherBuzzerTest::update(float tpf) {
     sf::Time elapsed = clock.getElapsedTime(); // Получить текущее время
-
+    /*
     if (elapsed.asSeconds() >= 4.0f) {
         if (statement == Statement::DISABLED) {
            // Logger::debug("Buzzer enabled");
@@ -23,7 +23,7 @@ void DebugLauncherBuzzerTest::update(float tpf) {
         statement = Statement::DISABLED;
         GlobalCommand globalCommand(GlobalCommandPrefix::NOISE, false);
         GlobalCommandsListenersObserverSingleton::getInstance().broadcast(globalCommand);
-    }
+    }*/
 }
 
 void DebugLauncherBuzzerTest::complete() {

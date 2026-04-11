@@ -28,7 +28,7 @@ void PinsInitializer::init() {
             std::string name{nameView};
             addInMap(name, &data);
         }
-        Logger::debug("All the pins were read succsssfully");
+        Logger::debug("All the pins were read successfully");
     } 
     catch (nlohmann::json::parse_error& e) {
         std::cerr << "Parsing error: " << e.what() << std::endl;

@@ -32,9 +32,11 @@ void BuzzerController::onCommandReceived(GlobalCommand& global_command){
         bool enable = global_command.getBool();
         if (enable){
             buzzer.enable(true);
+            Logger::debug("Buzzer enabled");
         }
         else {
             buzzer.enable(false);
+            Logger::debug("Buzzer disabled");
         }
     }
 }

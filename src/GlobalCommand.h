@@ -23,7 +23,7 @@ public:
 
     GlobalCommandPrefix getPrefix() const;
 
-    float getValue() const;
+    float getFloatValue() const;
 
     void setPrefix(GlobalCommandPrefix globalCommandPrefix);
 
@@ -36,10 +36,10 @@ public:
     bool getBool();
 
 private:
-    GlobalCommandPrefix prefix;
-    float floatValue;
-    int intValue;
-    bool boolValue;
+    GlobalCommandPrefix prefix = GlobalCommandPrefix::NO_DATA;
+    float floatValue = 0.0f;
+    int intValue = 0;
+    bool boolValue = true;
     int id;
 
     static int counter;

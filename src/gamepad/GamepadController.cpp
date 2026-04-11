@@ -6,13 +6,25 @@
 #include "../Constants.h"
 #include "../Logger.h"
 #include "../GlobalCommand.h"
+#include <magic_enum/magic_enum.hpp>
+
+#include "../GlobalCommandsListenersObserverSingleton.h"
 
 
 GamepadController::GamepadController(){
-    bool connected = sf::Joystick::isConnected(0);
-    std::string text = "gamepdad ";
-    if (connected) text+=" connected successfully";
-    else text+= "can not connected";
+    const bool connected = sf::Joystick::isConnected(0);
+    std::string text = "gamepad ";
+    if (connected) {
+        const auto identificationStruct = sf::Joystick::Identification();
+        const auto name =  identificationStruct.name;
+        const auto id = std::to_string(identificationStruct.productId);
+        text+=(name + ", ID: ");
+        text+=id;
+        text+=(" connected successfully");
+    }
+    else {
+        text+= "can not connected";
+    }
     Logger::debug(text);
 }
 
@@ -20,61 +32,170 @@ bool GamepadController::attachCommand(const std::optional<sf::Event> &event) {
     bool eventPickedUp = Constants::EVENT_CAN_NOT_ENCRYPTED;
     if (event->is<sf::Event::JoystickButtonPressed>()) {
         eventPickedUp = Constants::EVENT_PICKED_UP;
-        Logger::debug("Some command received pressed");
-        eventsQueue.push(event);
+        sfLevelEventsQueue.push(event);
     }
-    else if (event->is<sf::Event::JoystickMoved>()) {
-        Logger::debug("Some command received moved");
+    if (event->is<sf::Event::JoystickButtonReleased>()) {
         eventPickedUp = Constants::EVENT_PICKED_UP;
-        eventsQueue.push(event);
+        sfLevelEventsQueue.push(event);
+    } else if (event->is<sf::Event::JoystickMoved>()) {
+        eventPickedUp = Constants::EVENT_PICKED_UP;
+        sfLevelEventsQueue.push(event);
     }
     else if (event->is<sf::Event::JoystickConnected>()) {
-        Logger::debug("Some command received connected");
         eventPickedUp = Constants::EVENT_PICKED_UP;
-        eventsQueue.push(event);
+        sfLevelEventsQueue.push(event);
     }
     else if (event->is<sf::Event::JoystickDisconnected>()) {
-        Logger::debug("Some command received disconected");
         eventPickedUp = Constants::EVENT_PICKED_UP;
-        eventsQueue.push(event);
+        sfLevelEventsQueue.push(event);
     }
-    //
+    if (!sfLevelEventsQueue.empty()){
+        updateEventsQueue();
+    }
     return eventPickedUp;
 }
 
 void GamepadController::update(float tpf) {
-    if (!eventsQueue.empty()) {
-        while (!eventsQueue.empty()) {
-            GlobalCommand globalCommand;
-            auto event = eventsQueue.front();
-            if (const auto* buttonPressed = event->getIf<sf::Event::JoystickButtonPressed>()) {
-                unsigned int button = buttonPressed->button;
-                //unsigned int id = buttonPressed->joystickId;
-                GlobalCommandPrefix globalCommandPrefix = getPrefixForButton(button);
-                //globalCommand.setIntValue((int)button);
-                globalCommand.setPrefix(globalCommandPrefix);
-                globalCommand.setFloatValue(Constants::MAX_ANALOG_VALUE);
-                Logger::debug("Gamepad button pressed");
-            }
-            else if (event->is<sf::Event::JoystickMoved>()) {
-
-            }
-            else if (event->is<sf::Event::JoystickConnected>()) {
-
-            }
-            else if (event->is<sf::Event::JoystickDisconnected>()) {
-
-            }
-            eventsQueue.pop();
-            Logger::debug("Event received!");
-        }
-    }
 }
 
 void GamepadController::complete() {
+    
+}
+
+void GamepadController::updateEventsQueue()
+{
+    while (!sfLevelEventsQueue.empty()) {
+            GlobalCommand globalCommand;
+            auto event = sfLevelEventsQueue.front();
+            if (const auto* button_pressed = event->getIf<sf::Event::JoystickButtonPressed>()) {
+                attachButtonPressedData(button_pressed, &globalCommand);
+            }
+            else if (const auto* button_released = event->getIf<sf::Event::JoystickButtonReleased>()) {
+                attachButtonReleasedData(button_released, &globalCommand);
+            }
+            else if (event->is<sf::Event::JoystickMoved>()) {
+                const auto* axisMoved = event->getIf<sf::Event::JoystickMoved>();
+                attachAxisMovedData(axisMoved, &globalCommand);
+            }
+            else if (event->is<sf::Event::JoystickConnected>()) {
+                const auto* joystick_connected = event->getIf<sf::Event::JoystickConnected>();
+                const auto id = joystick_connected->joystickId;
+                log("Game pad ID: " + std::to_string(id) + " is connected");
+            }
+            else if (event->is<sf::Event::JoystickDisconnected>()) {
+                const auto* joystick_disconnected = event->getIf<sf::Event::JoystickDisconnected>();
+                const auto id = joystick_disconnected->joystickId;
+                log("Game pad ID: " + std::to_string(id) + " is disconnected");
+            }
+            if (globalCommand.getPrefix() != GlobalCommandPrefix::NO_DATA) {
+                GlobalCommandsListenersObserverSingleton::getInstance().broadcast(globalCommand);
+            }
+            sfLevelEventsQueue.pop();
+        }
+}
+
+void GamepadController::attachAxisMovedData(const sf::Event::JoystickMoved *joystick_moved, GlobalCommand *global_command) {
+    const auto axis = joystick_moved->axis;
+    global_command->setPrefix(getPrefixForAxis(axis));
+    const float value = GeometrieLibrary::map(joystick_moved->position, Constants::MIN_GAMEPAD_AXIS_VALUE, Constants::MAX_GAMEPAD_AXIS_VALUE,  Constants::MIN_ANALOG_VALUE, Constants::MAX_ANALOG_VALUE);
+    if (debug) {
+        const auto stringView = magic_enum::enum_name(axis);
+        const std::string name_str(stringView);
+        log("Axis: " + name_str + " value: " + std::to_string(value));
+    }
+}
+
+void GamepadController::attachButtonPressedData(const sf::Event::JoystickButtonPressed *button_pressed, GlobalCommand *global_command) const {
+    unsigned int button = button_pressed->button;
+    global_command->setPrefix(getPrefixForButton(button));
+    global_command->setFloatValue(Constants::MAX_ANALOG_VALUE);
+    if (debug) {
+        const auto stringView = magic_enum::enum_name(global_command->getPrefix());
+        const std::string name_str(stringView);
+        log("Button: " + std::to_string(button) + " pressed and command " + name_str + " generated");
+
+    }
 
 }
 
-GlobalCommandPrefix GamepadController::getPrefixForButton(unsigned int buttonCode) {
-    return GlobalCommandPrefix::RIGHT;
+void GamepadController::attachButtonReleasedData(const sf::Event::JoystickButtonReleased *button_released,    GlobalCommand *global_command) const {
+    const unsigned int button = button_released->button;
+    global_command->setPrefix(getPrefixForButton(button));
+    global_command->setFloatValue(Constants::MIN_ANALOG_VALUE);
+    if (debug) {
+        const auto stringView = magic_enum::enum_name(global_command->getPrefix());
+        const std::string name_str(stringView);
+        log("Button: " + std::to_string(button) + " released for command " + name_str);
+    }
+
 }
+
+GlobalCommandPrefix GamepadController::getPrefixForAxis(const sf::Joystick::Axis axis) {
+    const std::string name = gamepadData.getNameForAxis(axis);
+    auto global_command_prefix = GlobalCommandPrefix::NO_DATA;
+    if (name != NO_DATA) {
+        if (name == BUZZER_ANALOG) {
+            global_command_prefix = GlobalCommandPrefix::NOISE;
+        }
+        else if (name == ROTATION_ANALOG) {
+            global_command_prefix = GlobalCommandPrefix::ROTATION;
+        }
+        else if (name == MOVEMENT_ANALOG) {
+            global_command_prefix = GlobalCommandPrefix::MOVEMENT;
+        }
+    }
+    return global_command_prefix;
+}
+
+GlobalCommandPrefix GamepadController::getPrefixForButton(unsigned int buttonCode) const {
+    const std::string name = gamepadData.getNameForButton(buttonCode);
+    auto global_command_prefix = GlobalCommandPrefix::NO_DATA;
+    if (name != NO_DATA) {
+        if (name == BUZZER_DIGITAL) {
+            global_command_prefix = GlobalCommandPrefix::NOISE;
+        }
+    }
+    return global_command_prefix;
+}
+
+void GamepadController::log(const std::string &text) const{
+    if (debug){
+        Logger::debug("Gamepad: " + text);
+    }
+}
+
+
+/*
+void GamepadController::updateEventsQueue()
+{
+    while (!sfLevelEventsQueue.empty()) {
+            GlobalCommand* globalCommand = new GlobalCommand();
+            auto event = sfLevelEventsQueue.front();
+            if (const auto* button_pressed = event->getIf<sf::Event::JoystickButtonPressed>()) {
+                attachButtonPressedData(button_pressed, globalCommand);
+            }
+            else if (const auto* button_released = event->getIf<sf::Event::JoystickButtonReleased>()) {
+                attachButtonReleasedData(button_released, globalCommand);
+            }
+            else if (event->is<sf::Event::JoystickMoved>()) {
+                const auto* axisMoved = event->getIf<sf::Event::JoystickMoved>();
+                attachAxisMovedData(axisMoved, globalCommand);
+            }
+            else if (event->is<sf::Event::JoystickConnected>()) {
+                const auto* joystick_connected = event->getIf<sf::Event::JoystickConnected>();
+                const auto id = joystick_connected->joystickId;
+                log("Game pad ID: " + std::to_string(id) + " is connected");
+            }
+            else if (event->is<sf::Event::JoystickDisconnected>()) {
+                const auto* joystick_disconnected = event->getIf<sf::Event::JoystickDisconnected>();
+                const auto id = joystick_disconnected->joystickId;
+                log("Game pad ID: " + std::to_string(id) + " is disconnected");
+            }
+            if (globalCommand.getPrefix() != GlobalCommandPrefix::NO_DATA) {
+                GlobalCommandsListenersObserverSingleton::getInstance().broadcast(globalCommand);
+            }
+            delete globalCommand;
+            sfLevelEventsQueue.pop();
+        }
+}
+*/

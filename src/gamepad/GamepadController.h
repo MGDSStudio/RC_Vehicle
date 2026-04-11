@@ -13,7 +13,14 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 
-class GamepadController : public IUpdateable {
+#include "GamepadDataStruct.h"
+#include "../GeometrieLibrary.h"
+#include "../Constants.h"
+
+#include "../GlobalCommand.h"
+
+
+class GamepadController final : public IUpdateable {
 public:
     GamepadController();
 
@@ -21,10 +28,21 @@ public:
     void update(float tpf) override;
     void complete() override;
 private:
-    std::queue<std::optional<sf::Event>> eventsQueue = {};
-    //std::vector<std::optional<sf::Event>> eventsQueue = {};
-    //    std::vector<const std::optional<sf::Event>> eventsQueue = {};
-    GlobalCommandPrefix getPrefixForButton(unsigned int i);
+    std::queue<std::optional<sf::Event>> sfLevelEventsQueue = {};
+    GamepadDataStruct gamepadData;
+    GlobalCommandPrefix getPrefixForButton(unsigned int i) const;
+
+    void attachButtonPressedData(const sf::Event::JoystickButtonPressed * button_pressed, GlobalCommand * global_command) const;
+
+    void attachButtonReleasedData(const sf::Event::JoystickButtonReleased * button_released, GlobalCommand * global_command) const;
+
+    GlobalCommandPrefix getPrefixForAxis(sf::Joystick::Axis axis);
+
+    void attachAxisMovedData(const sf::Event::JoystickMoved * joystick_moved, GlobalCommand * global_command);
+
+    void updateEventsQueue();
+    void log(const std::string &text) const;
+    const bool debug = false;
 };
 
 

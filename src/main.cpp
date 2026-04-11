@@ -34,6 +34,7 @@ int main()
 			}
 
 		}
+		movement_controller.update(1);
 		buzzerController.update(1);
 		debug_launcher_buzzer_test.update(1);
 		window.clear();

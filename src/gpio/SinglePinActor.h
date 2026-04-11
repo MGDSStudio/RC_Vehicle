@@ -6,7 +6,7 @@
 #define RC_VEHICLE_WHEEL_H
 
 
-#include "gpio/Pin.h"
+#include "Pin.h"
 
 class SinglePinActor {
 
@@ -25,11 +25,11 @@ public:
 
     void setPin(Pin* pin);
 
-    void setValue(float value);
+    void setValue(float value) const;
     
-    void enable(bool flag);
+    void enable(bool flag) const;
 
-    void complete();
+    void complete() const;
 
 
 private:

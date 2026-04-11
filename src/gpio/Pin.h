@@ -5,13 +5,15 @@
 #ifndef RC_VEHICLE_PIN_H
 #define RC_VEHICLE_PIN_H
 
-
+#include <string>
+#include "../Logger.h"
 
 class Pin {
 public:
     Pin(int number){
         this->hardwareNumber = number;
         this->numberAsString = std::to_string(number);
+        Logger::debug("Pin " + numberAsString + " initialised");
     }
     virtual ~Pin() = default;
     virtual void setValue(float value) = 0;

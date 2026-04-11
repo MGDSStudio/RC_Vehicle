@@ -5,7 +5,7 @@
 #ifndef CMAKESFMLPROJECT_VEHICLECONTROLLER_H
 #define CMAKESFMLPROJECT_VEHICLECONTROLLER_H
 
-#include "SinglePinActor.h"
+#include "gpio/SinglePinActor.h"
 
 class VehicleController {
 
