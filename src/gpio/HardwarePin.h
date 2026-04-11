@@ -6,6 +6,9 @@
 #define CMAKESFMLPROJECT_HARDWAREPIN_H
 
 #include "Pin.h"
+#ifdef IS_RPI
+    #include <pigpio.h>
+#endif
 
 
 class HardwarePin : public Pin{

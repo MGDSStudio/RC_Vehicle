@@ -1,0 +1,14 @@
+//
+// Created by Alexander on 11.04.2026.
+//
+
+#ifndef CMAKESFMLPROJECT_GAMEPADCONFIGLOADER_H
+#define CMAKESFMLPROJECT_GAMEPADCONFIGLOADER_H
+
+
+class GamepadConfigLoader {
+
+};
+
+
+#endif //CMAKESFMLPROJECT_GAMEPADCONFIGLOADER_H

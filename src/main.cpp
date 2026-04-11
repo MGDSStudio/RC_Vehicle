@@ -5,6 +5,7 @@
 #include "gamepad/GamepadController.h"
 #include "preferences/PreferencesLoader.h"
 #include "BuzzerController.h"
+#include "gpio/GpioManager.h"
 
 void testJsonParser();
 
@@ -15,6 +16,7 @@ int main()
 	//testJsonParser();
 	MovementController movement_controller;
 	BuzzerController buzzerController;
+	GpioManager gpioManager;
 	sf::RenderWindow window( sf::VideoMode( { 200, 200 } ), "SFML works!" );
 	sf::CircleShape shape( 100.f );
 	shape.setFillColor( sf::Color::Green );
@@ -40,6 +42,7 @@ int main()
 	}
 	Logger::debug("Start to dispose");
 	buzzerController.complete();
+	gpioManager.complete();
 	GlobalCommandsListenersObserverSingleton::getInstance().complete();
 	Logger::debug("Dispose completed");
 }

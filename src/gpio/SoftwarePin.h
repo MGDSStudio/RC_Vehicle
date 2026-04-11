@@ -10,18 +10,17 @@
 class SoftwarePin : public Pin{
 
     public:    
-    SoftwarePin(int pinNumber) : Pin(pinNumber){
 
-    };
-    virtual ~SoftwarePin() override{
-        
-    }
+    virtual ~SoftwarePin() override;
     void setValue(float value) override;
     void enable(bool flag) override;
     void complete() override;
 
 private:
     const std::string DEBUG_TEXT_PREFIX = "SOFTWARE_PIN ";
+    const bool debug = true;
+    inline static bool gpioInitialised;
+
 };
 
 

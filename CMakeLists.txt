@@ -82,6 +82,21 @@ add_executable(main src/main.cpp
         src/BuzzerController.cpp
         src/BuzzerController.h
         src/BuzzerController.cpp
+        src/gpio/desktop/PinDesktop.cpp
+        src/gpio/PinAbstract.h
+        src/gpio/pi/PinPi.cpp
+        src/gpio/desktop/PinDesktop.cpp
+        src/gpio/HardwarePin.h
+        src/gpio/GpioManager.cpp
+        src/gpio/GpioManager.h
+        src/gpio/PinCommon.cpp
+        src/gpio/PinCommon.h
+        src/gpio/PinCommon.h
+        src/gamepad/GamepadConfigLoader.cpp
+        src/gamepad/GamepadConfigLoader.h
+        src/gamepad/InputKeys.h
+        src/gamepad/GamepadMappingDataStruct.cpp
+        src/gamepad/GamepadMappingDataStruct.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

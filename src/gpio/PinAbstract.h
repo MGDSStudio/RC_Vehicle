@@ -1,19 +1,19 @@
 //
-// Created by Alexander on 09.04.2026.
+// Created by Alexander on 11.04.2026.
 //
 
-#ifndef RC_VEHICLE_PIN_H
-#define RC_VEHICLE_PIN_H
+#ifndef CMAKESFMLPROJECT_PINABSTRACT_H
+#define CMAKESFMLPROJECT_PINABSTRACT_H
 
+#include <string>
 
-
-class Pin {
+class PinAbstract {
 public:
-    Pin(int number){
+    PinAbstract(int number){
         this->hardwareNumber = number;
         this->numberAsString = std::to_string(number);
     }
-    virtual ~Pin() = default;
+    virtual ~PinAbstract() = default;
     virtual void setValue(float value) = 0;
     virtual void enable(bool flag) = 0;
     virtual void complete() = 0;
@@ -24,5 +24,7 @@ protected:
     std::string numberAsString;
 };
 
+};
 
-#endif //RC_VEHICLE_PIN_H
+
+#endif //CMAKESFMLPROJECT_PINABSTRACT_H

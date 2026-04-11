@@ -12,9 +12,6 @@ static const std::string DEBUG = "DEBUG: ";
 
 class Logger {
 
-
-
-
 public:
     static void debug(const std::string &text) {
         int messageNumber = messageCounter;
@@ -28,6 +25,14 @@ public:
         messageNumber++;
         const std::string message =  std::to_string(messageNumber)+' '+prefix+text;
         std::cout << message << std::endl;
+    }
+
+
+    static void criticalError(const std::string &prefix, const std::string &text) {
+        int messageNumber = messageCounter;
+        messageNumber++;
+        const std::string message =  std::to_string(messageNumber)+' '+prefix+text;
+        std::cerr << message << std::endl;
     }
 private:
     inline static int messageCounter = 0;

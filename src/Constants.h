@@ -17,6 +17,8 @@ public:
     //inline static const std::string PATH_TO_DATA = "data";
     inline static const std::filesystem::path PATH_TO_DATA = "data";
 
+    static constexpr float MIN_GAMEPAD_AXIS_VALUE = -100;
+    static constexpr float MAX_GAMEPAD_AXIS_VALUE = 100;
 };
 
 
