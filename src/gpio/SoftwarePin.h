@@ -18,6 +18,7 @@ class SoftwarePin : public Pin{
     }
     void setValue(float value) override;
     void enable(bool flag) override;
+    void complete() override;
 
 private:
     const std::string DEBUG_TEXT_PREFIX = "SOFTWARE_PIN ";

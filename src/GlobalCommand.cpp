@@ -39,6 +39,9 @@ float GlobalCommand::getValue() const {
     return floatValue;
 }
 
+bool GlobalCommand::getBool(){
+    return boolValue;
+}
 
 
 void GlobalCommand::setFloatValue(float value) {

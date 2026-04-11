@@ -26,7 +26,7 @@ private:
     void addInMap(std::string name, nlohmann::json* data);
 
     const std::filesystem::path PATH = Constants::PATH_TO_DATA / "gpio.json";
-    std::pmr::unordered_map<PinActionName, int> pins;
+    inline static std::pmr::unordered_map<PinActionName, int> pins;
     static bool initialized;
 };
 

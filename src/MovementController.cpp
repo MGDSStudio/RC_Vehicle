@@ -28,6 +28,7 @@ MovementController::MovementController() {
     this->wheelBackwardRight.setPinForward(new SoftwarePin(pinNumberLeftRearForward));
     auto pinNumberRightRearBackward = map->at(PinActionName::RIGHT_REAR_WHEEL_BACKWARD);
     this->wheelBackwardRight.setPinBackward(new SoftwarePin(pinNumberLeftRearBackward));
+    Logger::debug("Movement controller init successfully");
 }
 
 void MovementController::update(){

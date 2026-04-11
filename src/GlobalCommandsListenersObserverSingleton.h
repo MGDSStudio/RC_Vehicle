@@ -19,13 +19,13 @@ public:
         static GlobalCommandsListenersObserverSingleton instance;
         return instance;
     }
-    void subscribe(GlobalCommandsListener listener);
-    void unsubscribe(GlobalCommandsListener listener);
+    void subscribe(GlobalCommandsListener* listener);
+    void unsubscribe(GlobalCommandsListener* listener);
     void broadcast(GlobalCommand &global_command) const;
 
 private:
     GlobalCommandsListenersObserverSingleton();
-    std::vector<GlobalCommandsListener> listeners;
+    std::vector<GlobalCommandsListener*> listeners;
 };
 
 

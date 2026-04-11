@@ -26,3 +26,7 @@ void SoftwarePin::enable(bool flag) {
     else text.append(" disabled");
     Logger::custom(DEBUG_TEXT_PREFIX, text);
 }
+
+void SoftwarePin::complete(){
+    Logger::debug("Nothing to dispose on Software pin");
+}

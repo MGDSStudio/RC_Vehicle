@@ -8,16 +8,16 @@ GlobalCommandsListenersObserverSingleton::GlobalCommandsListenersObserverSinglet
     
 }
 
-void GlobalCommandsListenersObserverSingleton::subscribe(GlobalCommandsListener listener) {
+void GlobalCommandsListenersObserverSingleton::subscribe(GlobalCommandsListener* listener) {
     listeners.push_back(listener);
 }
 
-void GlobalCommandsListenersObserverSingleton::unsubscribe(GlobalCommandsListener listener) {
+void GlobalCommandsListenersObserverSingleton::unsubscribe(GlobalCommandsListener* listener) {
     //if (listeners.)
 }
 
 void GlobalCommandsListenersObserverSingleton::broadcast(GlobalCommand &global_command) const {
     for (auto listener : listeners) {
-        listener.onCommandReceived(global_command);
+        listener->onCommandReceived(global_command);
     }
 }

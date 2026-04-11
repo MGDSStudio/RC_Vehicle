@@ -17,6 +17,7 @@ public:
     virtual ~Pin() = default;
     virtual void setValue(float value) = 0;
     virtual void enable(bool flag) = 0;
+    virtual void complete() = 0;
 
 protected:
     int hardwareNumber;

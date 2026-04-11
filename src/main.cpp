@@ -4,6 +4,7 @@
 #include "MovementController.h"
 #include "gamepad/GamepadController.h"
 #include "preferences/PreferencesLoader.h"
+#include "BuzzerController.h"
 
 void testJsonParser();
 
@@ -13,6 +14,7 @@ int main()
 {
 	//testJsonParser();
 	MovementController movement_controller;
+	BuzzerController buzzerController;
 	sf::RenderWindow window( sf::VideoMode( { 200, 200 } ), "SFML works!" );
 	sf::CircleShape shape( 100.f );
 	shape.setFillColor( sf::Color::Green );
@@ -30,11 +32,15 @@ int main()
 			}
 
 		}
+		buzzerController.update(1);
 		debug_launcher_buzzer_test.update(1);
 		window.clear();
 		window.draw( shape );
 		window.display();
 	}
+	Logger::debug("Start to dispose");
+	buzzerController.complete();
+	Logger::debug("Dispose completed");
 }
 
 /*void testJsonParser() {
