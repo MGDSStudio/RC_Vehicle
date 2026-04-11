@@ -17,14 +17,20 @@ class Logger {
 
 public:
     static void debug(const std::string &text) {
-        const std::string message = DEBUG+text;
+        int messageNumber = messageCounter;
+        messageNumber++;
+        const std::string message = std::to_string(messageNumber)+' '+DEBUG+text;
         std::cout << message << std::endl;
     }
 
     static void custom(const std::string &prefix, const std::string &text) {
-        const std::string message = prefix+text;
+        int messageNumber = messageCounter;
+        messageNumber++;
+        const std::string message =  std::to_string(messageNumber)+' '+prefix+text;
         std::cout << message << std::endl;
     }
+private:
+    inline static int messageCounter = 0;
 };
 
 

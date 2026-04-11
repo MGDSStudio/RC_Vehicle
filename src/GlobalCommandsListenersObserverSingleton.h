@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "GlobalCommandsListener.h"
+#include <algorithm>
 
 
 class GlobalCommandsListenersObserverSingleton {
@@ -14,6 +15,8 @@ class GlobalCommandsListenersObserverSingleton {
 public:
     GlobalCommandsListenersObserverSingleton(const GlobalCommandsListenersObserverSingleton &) = delete;
     void operator=(const GlobalCommandsListenersObserverSingleton &) = delete;
+
+    void complete();
 
     static GlobalCommandsListenersObserverSingleton& getInstance() {
         static GlobalCommandsListenersObserverSingleton instance;

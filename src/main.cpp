@@ -28,7 +28,7 @@ int main()
 				window.close();
 			}
 			else if (!gamepad_controller.attachCommand(event)) {
-
+				
 			}
 
 		}
@@ -40,6 +40,7 @@ int main()
 	}
 	Logger::debug("Start to dispose");
 	buzzerController.complete();
+	GlobalCommandsListenersObserverSingleton::getInstance().complete();
 	Logger::debug("Dispose completed");
 }
 

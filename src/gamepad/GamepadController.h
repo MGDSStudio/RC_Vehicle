@@ -10,9 +10,13 @@
 #include "SFML/Window/Event.hpp"
 #include "../IUpdateable.h"
 #include "../GlobalCommandPrefix.h"
+#include <SFML/Window.hpp>
+#include <iostream>
 
 class GamepadController : public IUpdateable {
 public:
+    GamepadController();
+
     bool attachCommand(const std::optional<sf::Event> &event);
     void update(float tpf) override;
     void complete() override;
