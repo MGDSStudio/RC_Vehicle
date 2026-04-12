@@ -7,6 +7,7 @@
 
 
 #include "gpio/SinglePinActor.h"
+#include "magic_enum/magic_enum.hpp"
 
 class WheelActor{
 
@@ -17,9 +18,14 @@ public:
     ~WheelActor(){
         delete pinForward;
         delete pinBackward;
+        delete hardwarePinForward;
+        delete hardwarePinBackward;
     }
     void setPinForward(Pin* pin);
     void setPinBackward(Pin* pin);
+    void setHardwarePinForward(PinCommon* pin);
+    void setHardwarePinBackward(PinCommon* pin);
+
     void setForward(float relativeValue);
     void setBackward(float relativeValue);
     void stop();
@@ -27,6 +33,8 @@ public:
 private:
     Pin* pinForward = nullptr;
     Pin* pinBackward = nullptr;
+    PinCommon* hardwarePinForward = nullptr;
+    PinCommon* hardwarePinBackward = nullptr;
     float direction;
 };
 

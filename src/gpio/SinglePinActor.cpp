@@ -8,17 +8,26 @@
 
 
 void SinglePinActor::setPin(Pin* pin){
-    this->pin = pin;
+    this->softwareDebugOnlyPin = pin;
 }
 
 void SinglePinActor::setValue(float value) const {
-    pin->setValue(value);
+    softwareDebugOnlyPin->setValue(value);
+    pinCommon->setValue(value);
 }
     
 void SinglePinActor::enable(bool flag) const {
-    pin->enable(flag);
+    softwareDebugOnlyPin->enable(flag);
+    pinCommon->enable(flag);
 }
 
 void SinglePinActor::complete() const {
-    pin->complete();
+    softwareDebugOnlyPin->complete();
+    pinCommon->complete();
+}
+
+
+
+void SinglePinActor::setPinCommon(PinCommon *pin_common) {
+    this->pinCommon = pin_common;
 }

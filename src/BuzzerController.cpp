@@ -4,6 +4,8 @@
 
 #include "BuzzerController.h"
 
+#include "GeometrieLibrary.h"
+
 
 BuzzerController::BuzzerController(){
     init();
@@ -20,6 +22,7 @@ void BuzzerController::init() {
     auto buzzerPin = map->at(PinActionName::BUZZER);
     Logger::debug("buzzer pin at: " + std::to_string(buzzerPin) + " init successfully");
     this->buzzer.setPin(new SoftwarePin(buzzerPin));
+    this->buzzer.setPinCommon(new PinCommon(buzzerPin));
     GlobalCommandsListenersObserverSingleton::getInstance().subscribe(this);
 }
 
@@ -28,16 +31,30 @@ void BuzzerController::update(float tpf) {
 }
 
 void BuzzerController::onCommandReceived(GlobalCommand& global_command){
-    if (global_command.getPrefix() == GlobalCommandPrefix::NOISE){
+    if (global_command.getPrefix() == GlobalCommandPrefix::NOISE_DIGITAL){
         bool enable = global_command.getBool();
+        //float floatVal = global_command.getFloatValue();
+        //Logger::debug("Float buzzer value is: " + std::to_string(floatVal));
         if (enable){
             buzzer.enable(true);
-            Logger::debug("Buzzer enabled");
+            Logger::debug("Buzzer enabled from digital command");
         }
         else {
             buzzer.enable(false);
-            Logger::debug("Buzzer disabled");
+            Logger::debug("Buzzer disabled from digital command");
         }
+    }
+    else if (global_command.getPrefix() == GlobalCommandPrefix::NOISE_ANALOG) {
+        float floatVal = global_command.getFloatValue();
+        float mappedFromNullUpToOne = GeometrieLibrary::map(floatVal, Constants::MIN_ANALOG_VALUE, Constants::MAX_ANALOG_VALUE, 0, Constants::MAX_ANALOG_VALUE);
+        //Logger::debug("Buzzer enabled from analog command to value: " + std::to_string(mappedFromNullUpToOne) + " from original " + std::to_string(floatVal));
+
+        if (mappedFromNullUpToOne<=DEAD_ZONE_VALUE) {
+            buzzer.enable(false);
+            return;
+        }
+        buzzer.setValue(mappedFromNullUpToOne);
+        Logger::debug("Buzzer enabled from analog command to value: " + std::to_string(mappedFromNullUpToOne) + " from original " + std::to_string(floatVal));
     }
 }
 

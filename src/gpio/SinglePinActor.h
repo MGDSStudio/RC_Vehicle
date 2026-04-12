@@ -6,13 +6,15 @@
 #define RC_VEHICLE_WHEEL_H
 
 
+#include "HardwarePin.h"
 #include "Pin.h"
+#include "PinCommon.h"
 
 class SinglePinActor {
 
 public:
     SinglePinActor(Pin* pin){
-        this->pin = pin;
+        this->softwareDebugOnlyPin = pin;
     }
 
     SinglePinActor(){
@@ -20,7 +22,8 @@ public:
     }
 
     ~SinglePinActor(){
-        this->pin = nullptr;
+        this->softwareDebugOnlyPin = nullptr;
+        pinCommon = nullptr;
     }
 
     void setPin(Pin* pin);
@@ -31,9 +34,11 @@ public:
 
     void complete() const;
 
+    void setPinCommon(PinCommon* pin_common);
 
 private:
-    Pin* pin = nullptr;
+    Pin* softwareDebugOnlyPin = nullptr;
+    PinCommon* pinCommon = nullptr;
     float direction;
 };
 

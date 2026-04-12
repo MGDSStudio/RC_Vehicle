@@ -98,6 +98,7 @@ void GamepadController::attachAxisMovedData(const sf::Event::JoystickMoved *joys
     const auto axis = joystick_moved->axis;
     global_command->setPrefix(getPrefixForAxis(axis));
     const float value = GeometrieLibrary::map(joystick_moved->position, Constants::MIN_GAMEPAD_AXIS_VALUE, Constants::MAX_GAMEPAD_AXIS_VALUE,  Constants::MIN_ANALOG_VALUE, Constants::MAX_ANALOG_VALUE);
+    global_command->setFloatValue(value);
     if (debug) {
         const auto stringView = magic_enum::enum_name(axis);
         const std::string name_str(stringView);
@@ -109,6 +110,7 @@ void GamepadController::attachButtonPressedData(const sf::Event::JoystickButtonP
     unsigned int button = button_pressed->button;
     global_command->setPrefix(getPrefixForButton(button));
     global_command->setFloatValue(Constants::MAX_ANALOG_VALUE);
+    global_command->setBoolValue(true);
     if (debug) {
         const auto stringView = magic_enum::enum_name(global_command->getPrefix());
         const std::string name_str(stringView);
@@ -122,12 +124,12 @@ void GamepadController::attachButtonReleasedData(const sf::Event::JoystickButton
     const unsigned int button = button_released->button;
     global_command->setPrefix(getPrefixForButton(button));
     global_command->setFloatValue(Constants::MIN_ANALOG_VALUE);
+    global_command->setBoolValue(false);
     if (debug) {
         const auto stringView = magic_enum::enum_name(global_command->getPrefix());
         const std::string name_str(stringView);
         log("Button: " + std::to_string(button) + " released for command " + name_str);
     }
-
 }
 
 GlobalCommandPrefix GamepadController::getPrefixForAxis(const sf::Joystick::Axis axis) {
@@ -135,7 +137,7 @@ GlobalCommandPrefix GamepadController::getPrefixForAxis(const sf::Joystick::Axis
     auto global_command_prefix = GlobalCommandPrefix::NO_DATA;
     if (name != NO_DATA) {
         if (name == BUZZER_ANALOG) {
-            global_command_prefix = GlobalCommandPrefix::NOISE;
+            global_command_prefix = GlobalCommandPrefix::NOISE_ANALOG;
         }
         else if (name == ROTATION_ANALOG) {
             global_command_prefix = GlobalCommandPrefix::ROTATION;
@@ -152,7 +154,7 @@ GlobalCommandPrefix GamepadController::getPrefixForButton(unsigned int buttonCod
     auto global_command_prefix = GlobalCommandPrefix::NO_DATA;
     if (name != NO_DATA) {
         if (name == BUZZER_DIGITAL) {
-            global_command_prefix = GlobalCommandPrefix::NOISE;
+            global_command_prefix = GlobalCommandPrefix::NOISE_DIGITAL;
         }
     }
     return global_command_prefix;

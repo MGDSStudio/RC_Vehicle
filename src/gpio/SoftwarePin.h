@@ -21,7 +21,7 @@ class SoftwarePin : public Pin{
 
 private:
     const std::string DEBUG_TEXT_PREFIX = "SOFTWARE_PIN ";
-    const bool debug = true;
+    const bool debug = false;
     inline static bool gpioInitialised;
 
 };

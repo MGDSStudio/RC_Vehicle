@@ -27,7 +27,7 @@ public:
     
 private:
     const std::filesystem::path PATH = Constants::PATH_TO_DATA / "gpio.json";
-
+    static constexpr float DEAD_ZONE_VALUE = 0.1f;
     void init();
     SinglePinActor buzzer;
 };

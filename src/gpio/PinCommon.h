@@ -9,11 +9,11 @@
 
 class PinCommon {
 public:
-    PinCommon(int number);
-    virtual ~PinCommon() = default;
-    virtual void setValue(float value) = 0;
-    virtual void enable(bool flag) = 0;
-    virtual void complete() = 0;
+    PinCommon(const int number);
+    ~PinCommon() = default;
+    void setValue(float value);
+    void enable(bool flag);
+    void complete();
 
 protected:
     int hardwareNumber;

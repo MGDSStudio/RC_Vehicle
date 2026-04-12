@@ -9,7 +9,7 @@
     #include <pigpio.h>
 #endif
 
-PinCommon::PinCommon(int number){
+PinCommon::PinCommon(const int number){
     this->hardwareNumber = number;
     this->numberAsString = std::to_string(number);
     this->debugTextPrefix = DEBUG_TEXT_PREFIX_COMMON+std::to_string(number);
@@ -19,30 +19,34 @@ PinCommon::PinCommon(int number){
 
 }
 
-void PinCommon::setValue(float value) {
-    if (debug == true){
-        std::string text = numberAsString+ " is set value: "+ std::to_string(value);
+void PinCommon::setValue(const float value) {
+    int mapped = mapForPwm(value);
+    bool appliedForPi = false;
+    #ifdef IS_RPI
+        appliedForPi = true;
+        gpioPWM(hardwarePin, mapped);
+    #endif
+    if (debug){
+        const std::string text = " is set value: "+ std::to_string(value) + "; mapped: " + std::to_string(mapped) + " applied for PI: " + std::to_string(appliedForPi);
         Logger::custom(debugTextPrefix, text);
-        int mapped = mapForPwm(value);
-        #ifdef IS_RPI
-            gpioPWM(hardwarePin, mapped);
-        #endif
     }
 }
 
-void PinCommon::enable(bool flag) {
+void PinCommon::enable(const bool flag) {
+    float appliedForPi = false;
+    #ifdef IS_RPI
+        appliedForPi = true;
+        if (flag){
+            gpioPWM(hardwarePin, ENABLED_PWM_VALUE);
+        }
+        else {
+            gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
+        }
+    #endif
     if (debug){
-        std::string text = numberAsString;// = DEBUG_TEXT_PREFIX + "set value: "+ std::to_string(value);
-        if (flag) text.append(" enabled");
-        else text.append(" disabled");
-        #ifdef IS_RPI
-                if (flag){
-                    gpioPWM(hardwarePin, ENABLED_PWM_VALUE);
-                }
-                    else {
-                        gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
-                    }
-        #endif
+        std::string text = "";// = DEBUG_TEXT_PREFIX + "set value: "+ std::to_string(value);
+        if (flag) text.append(" enabled. Applied for PI: " + std::to_string(appliedForPi));
+        else text.append(" disabled. Applied for PI: " + std::to_string(appliedForPi));
         Logger::custom(debugTextPrefix, text);
     }
 }

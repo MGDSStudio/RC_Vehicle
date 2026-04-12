@@ -11,6 +11,7 @@
 #include "IUpdateable.h"
 #include "gpio/SinglePinActor.h"
 #include "WheelActor.h"
+#include "WheelSignalsCalculator.h"
 #include "gpio/SoftwarePin.h"
 
 class MovementController : public IUpdateable, GlobalCommandsListener{
@@ -28,7 +29,7 @@ private:
     WheelActor wheelForwardRight;
     WheelActor wheelBackwardLeft;
     WheelActor wheelBackwardRight;
-
+    WheelSignalsCalculator* wheelSignalsCalculator;
     inline static const float DEAD_ZONE_MIN = -0.075;
     inline static const float DEAD_ZONE_MAX = 0.075;
 

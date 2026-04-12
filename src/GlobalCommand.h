@@ -15,29 +15,35 @@ class GlobalCommand {
 public:
     GlobalCommand();
 
-    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, int intParam, float floatParam);
-
     GlobalCommand(GlobalCommandPrefix globalCommandPrefix, int param);
 
     GlobalCommand(GlobalCommandPrefix globalCommandPrefix, bool enabled);
 
     GlobalCommandPrefix getPrefix() const;
 
-    float getFloatValue() const;
+    [[nodiscard]] float getFloatValue() const {
+        return floatValue;
+    }
+
+
 
     void setPrefix(GlobalCommandPrefix globalCommandPrefix);
 
     void setFloatValue(float value);
 
+    void setBoolValue(bool value) {
+        this->boolValue = value;
+    }
+
     void setIntValue(int value);
 
-    int getId();
+    int getId() const;
 
-    bool getBool();
+    bool getBool() const;
 
 private:
     GlobalCommandPrefix prefix = GlobalCommandPrefix::NO_DATA;
-    float floatValue = 0.0f;
+    float floatValue;
     int intValue = 0;
     bool boolValue = true;
     int id;

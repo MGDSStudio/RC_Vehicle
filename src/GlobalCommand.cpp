@@ -23,11 +23,11 @@ GlobalCommand::GlobalCommand() {
 }
 
 void GlobalCommand::setId(){
-    this->id = this->counter;
-    this->counter++;
+    this->id = counter;
+    counter++;
 }
 
-int GlobalCommand::getId(){
+int GlobalCommand::getId() const{
     return id;
 }
 
@@ -35,17 +35,15 @@ GlobalCommandPrefix GlobalCommand::getPrefix() const {
     return prefix;
 }
 
-float GlobalCommand::getFloatValue() const {
-    return floatValue;
-}
 
-bool GlobalCommand::getBool(){
+
+bool GlobalCommand::getBool() const{
     return boolValue;
 }
 
 
 void GlobalCommand::setFloatValue(const float value) {
-    this->floatValue = value;
+    floatValue = value;
 }
 
 void GlobalCommand::setPrefix(GlobalCommandPrefix globalCommandPrefix) {
