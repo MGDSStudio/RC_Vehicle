@@ -1,38 +1,41 @@
+
 //
-// Created by mgdsstudio on 12.04.2026.
+// Created by gorod on 13.04.2026.
 //
 
-#include "WheelSignalsCalculator.h"
+#include "WheelSignalsCalculatorSimple.h"
+constexpr static float X_DISTANCE_BETWEEN_WHEELS = 200;
+constexpr static float Y_DISTANCE_BETWEEN_WHEELS = 300;
 
-void WheelSignalsCalculator::applyMoveForward(const float value) const {
+void WheelSignalsCalculatorSimple::applyMoveForward(const float value) const {
     wheelForwardLeft->setForward(value);
     wheelForwardRight->setForward(value);
     wheelBackwardLeft->setForward(value);
     wheelBackwardRight->setForward(value);
 }
 
-void WheelSignalsCalculator::applyMoveBackward(const float value) const {
+void WheelSignalsCalculatorSimple::applyMoveBackward(const float value) const {
     wheelForwardLeft->setBackward(value);
     wheelForwardRight->setBackward(value);
     wheelBackwardLeft->setBackward(value);
     wheelBackwardRight->setBackward(value);
 }
 
-void WheelSignalsCalculator::applyRotationCw(const float value) const {
+void WheelSignalsCalculatorSimple::applyRotationCw(const float value) const {
     wheelForwardLeft->setForward(value);
     wheelForwardRight->setBackward(value);
     wheelBackwardLeft->setForward(value);
     wheelBackwardRight->setBackward(value);
 }
 
-void WheelSignalsCalculator::applyRotationCcw(const float value) const {
+void WheelSignalsCalculatorSimple::applyRotationCcw(const float value) const {
     wheelForwardLeft->setBackward(value);
     wheelForwardRight->setForward(value);
     wheelBackwardLeft->setBackward(value);
     wheelBackwardRight->setForward(value);
 }
 
-void WheelSignalsCalculator::stopAll() const {
+void WheelSignalsCalculatorSimple::stopAll() const {
     wheelForwardLeft->stop();
     wheelForwardRight->stop();
     wheelBackwardLeft->stop();

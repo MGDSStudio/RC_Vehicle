@@ -23,15 +23,15 @@ void BuzzerController::init() {
     Logger::debug("buzzer pin at: " + std::to_string(buzzerPin) + " init successfully");
     this->buzzer.setPin(new SoftwarePin(buzzerPin));
     this->buzzer.setPinCommon(new PinCommon(buzzerPin));
-    GlobalCommandsListenersObserverSingleton::getInstance().subscribe(this);
+    LocalCommandsListenersObserverSingleton::getInstance().subscribe(this);
 }
 
 void BuzzerController::update(float tpf) {
 
 }
 
-void BuzzerController::onCommandReceived(GlobalCommand& global_command){
-    if (global_command.getPrefix() == GlobalCommandPrefix::NOISE_DIGITAL){
+void BuzzerController::onCommandReceived(LocalCommand& global_command){
+    if (global_command.getPrefix() == LocalCommandPrefix::NOISE_DIGITAL){
         bool enable = global_command.getBool();
         //float floatVal = global_command.getFloatValue();
         //Logger::debug("Float buzzer value is: " + std::to_string(floatVal));
@@ -44,7 +44,7 @@ void BuzzerController::onCommandReceived(GlobalCommand& global_command){
             Logger::debug("Buzzer disabled from digital command");
         }
     }
-    else if (global_command.getPrefix() == GlobalCommandPrefix::NOISE_ANALOG) {
+    else if (global_command.getPrefix() == LocalCommandPrefix::NOISE_ANALOG) {
         float floatVal = global_command.getFloatValue();
         float mappedFromNullUpToOne = GeometrieLibrary::map(floatVal, Constants::MIN_ANALOG_VALUE, Constants::MAX_ANALOG_VALUE, 0, Constants::MAX_ANALOG_VALUE);
         //Logger::debug("Buzzer enabled from analog command to value: " + std::to_string(mappedFromNullUpToOne) + " from original " + std::to_string(floatVal));

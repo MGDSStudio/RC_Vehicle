@@ -5,21 +5,21 @@
 #ifndef CMAKESFMLPROJECT_GLOBALCOMMAND_H
 #define CMAKESFMLPROJECT_GLOBALCOMMAND_H
 
-#include "GlobalCommandPrefix.h"
+#include "LocalCommandPrefix.h"
 #include "Constants.h"
 /*enum class Prefix{
     FORWARD, BACKWARD, LEFT, RIGHT, NOISE
 };*/
-class GlobalCommand {
+class LocalCommand {
 
 public:
-    GlobalCommand();
+    LocalCommand();
 
-    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, int param);
+    LocalCommand(LocalCommandPrefix globalCommandPrefix, int param);
 
-    GlobalCommand(GlobalCommandPrefix globalCommandPrefix, bool enabled);
+    LocalCommand(LocalCommandPrefix globalCommandPrefix, bool enabled);
 
-    GlobalCommandPrefix getPrefix() const;
+    LocalCommandPrefix getPrefix() const;
 
     [[nodiscard]] float getFloatValue() const {
         return floatValue;
@@ -27,7 +27,7 @@ public:
 
 
 
-    void setPrefix(GlobalCommandPrefix globalCommandPrefix);
+    void setPrefix(LocalCommandPrefix globalCommandPrefix);
 
     void setFloatValue(float value);
 
@@ -42,7 +42,7 @@ public:
     bool getBool() const;
 
 private:
-    GlobalCommandPrefix prefix = GlobalCommandPrefix::NO_DATA;
+    LocalCommandPrefix prefix = LocalCommandPrefix::NO_DATA;
     float floatValue;
     int intValue = 0;
     bool boolValue = true;

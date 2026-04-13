@@ -8,10 +8,15 @@
 
 #include "WheelActor.h"
 
-class WheelSignalsCalculator {
+class WheelSignalsCalculatorSimple {
+
+
+enum class ActivationType{
+    ANALOG, DIGITAL, NO_DATA
+};
 
 public:
-    WheelSignalsCalculator(WheelActor* wheelForwardLeft, WheelActor* wheelForwardRight, WheelActor* wheelBackwardLeft, WheelActor* wheelBackwardRight) {
+    WheelSignalsCalculatorSimple(WheelActor* wheelForwardLeft, WheelActor* wheelForwardRight, WheelActor* wheelBackwardLeft, WheelActor* wheelBackwardRight) {
         this->wheelForwardLeft = wheelForwardLeft;
         this->wheelForwardRight = wheelForwardRight;
         this->wheelBackwardLeft = wheelBackwardLeft;
@@ -32,7 +37,7 @@ private:
     WheelActor* wheelForwardRight;
     WheelActor* wheelBackwardLeft;
     WheelActor* wheelBackwardRight;
-
+    ActivationType actualActivationType = ActivationType::NO_DATA;
     static constexpr int STOP_VALUE = 0;
 };
 

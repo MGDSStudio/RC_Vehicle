@@ -4,7 +4,7 @@
 
 #include "MovementController.h"
 
-#include "GlobalCommandsListenersObserverSingleton.h"
+#include "LocalCommandsListenersObserverSingleton.h"
 #include "gpio/PinsInitializer.h"
 
 MovementController::MovementController() {
@@ -41,9 +41,9 @@ MovementController::MovementController() {
     this->wheelBackwardRight.setHardwarePinBackward(new PinCommon(pinNumberRightRearBackward));
 
     //WheelActor* wheelForwardLeft, WheelActor* wheelForwardRight, WheelActor* wheelBackwardLeft, WheelActor* wheelBackwardRight
-    this->wheelSignalsCalculator = new WheelSignalsCalculator(&wheelForwardLeft, &wheelForwardRight, &wheelBackwardLeft, &wheelBackwardRight);
+    this->wheelSignalsCalculator = new WheelSignalsCalculatorSimple(&wheelForwardLeft, &wheelForwardRight, &wheelBackwardLeft, &wheelBackwardRight);
 
-    GlobalCommandsListenersObserverSingleton::getInstance().subscribe(this);
+    LocalCommandsListenersObserverSingleton::getInstance().subscribe(this);
 
 
 
@@ -62,9 +62,9 @@ void MovementController::update(float tpf){
 void MovementController::complete() {
 }
 
-void MovementController::onCommandReceived(GlobalCommand &global_command) {
+void MovementController::onCommandReceived(LocalCommand &global_command) {
     //GlobalCommandsListener::onCommandReceived(global_command);
-    if (global_command.getPrefix() == GlobalCommandPrefix::MOVEMENT){
+    if (global_command.getPrefix() == LocalCommandPrefix::MOVEMENT){
         float value = global_command.getFloatValue();
         if (inDeadZone(value)) {
             wheelSignalsCalculator->stopAll();
@@ -81,7 +81,7 @@ void MovementController::onCommandReceived(GlobalCommand &global_command) {
            // Logger::debug("Move backward");
         }
     }
-    else if (global_command.getPrefix() == GlobalCommandPrefix::ROTATION) {
+    else if (global_command.getPrefix() == LocalCommandPrefix::ROTATION) {
         float value = global_command.getFloatValue();
         if (inDeadZone(value)) {
             wheelSignalsCalculator->stopAll();

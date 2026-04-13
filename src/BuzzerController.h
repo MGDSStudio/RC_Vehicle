@@ -5,15 +5,15 @@
 
 #ifndef CMAKESFMLPROJECT_BUZZERCONTROLLER_H
 #define CMAKESFMLPROJECT_BUZZERCONTROLLER_H
-#include "GlobalCommandsListener.h"
+#include "LocalCommandsListener.h"
 #include "IUpdateable.h"
 #include "gpio/SinglePinActor.h"
 #include "gpio/SoftwarePin.h"
 #include "gpio/PinsInitializer.h"
-#include "GlobalCommandPrefix.h"
-#include "GlobalCommandsListenersObserverSingleton.h"
+#include "LocalCommandPrefix.h"
+#include "LocalCommandsListenersObserverSingleton.h"
 
-class BuzzerController : public IUpdateable, GlobalCommandsListener{
+class BuzzerController : public IUpdateable, LocalCommandsListener{
     //
 
 public:
@@ -23,7 +23,7 @@ public:
 
     void update(float tpf) override;
     void complete() override;
-    void onCommandReceived(GlobalCommand& global_command) override;
+    void onCommandReceived(LocalCommand& global_command) override;
     
 private:
     const std::filesystem::path PATH = Constants::PATH_TO_DATA / "gpio.json";

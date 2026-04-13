@@ -7,6 +7,8 @@
 
 #include <string>
 
+
+
 class PinCommon {
 public:
     PinCommon(const int number);
@@ -27,8 +29,5 @@ protected:
 
     int mapForPwm(float fromMinusOneUpToOne);
 };
-
-
-
 
 #endif //CMAKESFMLPROJECT_PINCOMMON_H

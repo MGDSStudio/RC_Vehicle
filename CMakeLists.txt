@@ -48,8 +48,8 @@ add_executable(main src/main.cpp
         src/MovementController.cpp
         src/MovementController.h
         src/MovementController.h
-        src/GlobalCommand.cpp
-        src/GlobalCommand.h
+        src/LocalCommand.cpp
+        src/LocalCommand.h
         src/gamepad/GamepadController.cpp
         src/gamepad/GamepadController.h
         src/gamepad/GamepadController.h
@@ -60,7 +60,7 @@ add_executable(main src/main.cpp
         src/DebugLauncherBuzzerTest.h
         src/WheelActor.cpp
         src/WheelActor.h
-        src/GlobalCommandPrefix.h
+        src/LocalCommandPrefix.h
         src/gpio/SoftwarePin.cpp
         src/gpio/SoftwarePin.h
         src/gpio/SoftwarePin.cpp
@@ -72,10 +72,10 @@ add_executable(main src/main.cpp
         src/gpio/PinsInitializer.cpp
         src/gpio/PinsInitializer.h
         src/gpio/PinActionName.h
-        src/GlobalCommandsListenersObserverSingleton.cpp
-        src/GlobalCommandsListenersObserverSingleton.h
-        src/GlobalCommandsListener.cpp
-        src/GlobalCommandsListener.h
+        src/LocalCommandsListenersObserverSingleton.cpp
+        src/LocalCommandsListenersObserverSingleton.h
+        src/LocalCommandsListener.cpp
+        src/LocalCommandsListener.h
         src/BuzzerController.cpp
         src/BuzzerController.h
         src/BuzzerController.cpp
@@ -91,8 +91,9 @@ add_executable(main src/main.cpp
         src/gamepad/InputKeys.h
         src/GeometrieLibrary.h
         src/gamepad/GamepadInputNames.h
-        src/WheelSignalsCalculator.cpp
-        src/WheelSignalsCalculator.h
+        src/WheelSignalsCalculatorSimple.cpp
+        src/WheelSignalsCalculatorSimple.h
+        src/WheelsSignalsCalculatorAdvanced.cpp
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

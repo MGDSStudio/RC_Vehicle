@@ -50,7 +50,7 @@ int main()
 	Logger::debug("Start to dispose");
 	buzzerController.complete();
 	gpioManager.complete();
-	GlobalCommandsListenersObserverSingleton::getInstance().complete();
+	LocalCommandsListenersObserverSingleton::getInstance().complete();
 	Logger::debug("Dispose completed");
 }
 

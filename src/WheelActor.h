@@ -9,6 +9,8 @@
 #include "gpio/SinglePinActor.h"
 #include "magic_enum/magic_enum.hpp"
 
+
+
 class WheelActor{
 
 public:
@@ -36,6 +38,7 @@ private:
     PinCommon* hardwarePinForward = nullptr;
     PinCommon* hardwarePinBackward = nullptr;
     float direction;
+
 };
 
 

@@ -9,7 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include "SFML/Window/Event.hpp"
 #include "../IUpdateable.h"
-#include "../GlobalCommandPrefix.h"
+#include "../LocalCommandPrefix.h"
 #include <SFML/Window.hpp>
 #include <iostream>
 
@@ -17,7 +17,7 @@
 #include "../GeometrieLibrary.h"
 #include "../Constants.h"
 
-#include "../GlobalCommand.h"
+#include "../LocalCommand.h"
 
 
 class GamepadController final : public IUpdateable {
@@ -30,15 +30,15 @@ public:
 private:
     std::queue<std::optional<sf::Event>> sfLevelEventsQueue = {};
     GamepadDataStruct gamepadData;
-    GlobalCommandPrefix getPrefixForButton(unsigned int i) const;
+    LocalCommandPrefix getPrefixForButton(unsigned int i) const;
 
-    void attachButtonPressedData(const sf::Event::JoystickButtonPressed * button_pressed, GlobalCommand * global_command) const;
+    void attachButtonPressedData(const sf::Event::JoystickButtonPressed * button_pressed, LocalCommand * global_command) const;
 
-    void attachButtonReleasedData(const sf::Event::JoystickButtonReleased * button_released, GlobalCommand * global_command) const;
+    void attachButtonReleasedData(const sf::Event::JoystickButtonReleased * button_released, LocalCommand * global_command) const;
 
-    GlobalCommandPrefix getPrefixForAxis(sf::Joystick::Axis axis);
+    LocalCommandPrefix getPrefixForAxis(sf::Joystick::Axis axis);
 
-    void attachAxisMovedData(const sf::Event::JoystickMoved * joystick_moved, GlobalCommand * global_command);
+    void attachAxisMovedData(const sf::Event::JoystickMoved * joystick_moved, LocalCommand * global_command);
 
     void updateEventsQueue();
     void log(const std::string &text) const;

@@ -4,12 +4,12 @@
 
 #ifndef CMAKESFMLPROJECT_GLOBALCOMMANDSLISTENER_H
 #define CMAKESFMLPROJECT_GLOBALCOMMANDSLISTENER_H
-#include "GlobalCommand.h"
+#include "LocalCommand.h"
 
 
-class GlobalCommandsListener {
+class LocalCommandsListener {
 public:
-    virtual void onCommandReceived(GlobalCommand& global_command);
+    virtual void onCommandReceived(LocalCommand& global_command);
 };
 
 
