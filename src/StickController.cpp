@@ -6,7 +6,7 @@
 
 void StickController::updateInDeadZone()
 {
-    float angleToTouchPlace = ;
+    //float angleToTouchPlace = ;
 
 
 }
