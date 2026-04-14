@@ -97,6 +97,11 @@ add_executable(main src/main.cpp
         src/AppController.cpp
         src/AppController.h
         src/WheelsSignalsCalculatorAdvanced.h
+        src/TouchPlace.cpp
+        src/TouchPlace.h
+        src/MechanicalConstants.h
+        src/StickController.cpp
+        src/StickController.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

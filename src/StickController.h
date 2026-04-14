@@ -1,0 +1,16 @@
+//
+// Created by gorod on 14.04.2026.
+//
+
+#ifndef CMAKESFMLPROJECT_STICKCONTROLLER_H
+#define CMAKESFMLPROJECT_STICKCONTROLLER_H
+
+
+class StickController
+{
+
+
+};
+
+
+#endif //CMAKESFMLPROJECT_STICKCONTROLLER_H
