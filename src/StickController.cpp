@@ -3,3 +3,10 @@
 //
 
 #include "StickController.h"
+
+void StickController::updateInDeadZone()
+{
+    float angleToTouchPlace = ;
+
+
+}
