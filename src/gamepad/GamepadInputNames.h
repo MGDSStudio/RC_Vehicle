@@ -11,7 +11,8 @@
    const std::string  GRIPPER_RELEASE = "GRIPPER_RELEASE";
    const std::string  GRIPPER_UP = "GRIPPER_UP";
    const std::string  GRIPPER_DOWN = "GRIPPER_DOWN";
-   const std::string SWITCH_OFF = "SWITCH_OFF";
+   const std::string  SWITCH_OFF = "SWITCH_OFF";
+    const std::string  PAUSE = "PAUSE";
    const std::string  MOVE_FORWARD_DIGITAL = "MOVE_FORWARD_DIGITAL";
    const std::string  MOVE_BACKWARD_DIGITAL = "MOVE_BACKWARD_DIGITAL";
    const std::string  ROTATE_CW_DIGITAL = "ROTATE_CW_DIGITAL";

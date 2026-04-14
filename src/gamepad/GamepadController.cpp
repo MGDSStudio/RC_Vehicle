@@ -49,6 +49,14 @@ bool GamepadController::attachCommand(const std::optional<sf::Event> &event) {
         eventPickedUp = Constants::EVENT_PICKED_UP;
         sfLevelEventsQueue.push(event);
     }
+    /*if (event->is<sf::Event::KeyPressed>()) {
+        const auto* button_pressed = event->getIf<sf::Event::KeyPressed>();
+        if (button_pressed->code == sf::Keyboard::Key::Backspace)
+        {
+            Logger::debug("Try to close");
+            *this->completion_flag = true;
+        }
+    }*/
     if (!sfLevelEventsQueue.empty()){
         updateEventsQueue();
     }
@@ -87,6 +95,7 @@ void GamepadController::updateEventsQueue()
                 const auto id = joystick_disconnected->joystickId;
                 log("Game pad ID: " + std::to_string(id) + " is disconnected");
             }
+
             if (globalCommand.getPrefix() != LocalCommandPrefix::NO_DATA) {
                 LocalCommandsListenersObserverSingleton::getInstance().broadcast(globalCommand);
             }
@@ -115,21 +124,27 @@ void GamepadController::attachButtonPressedData(const sf::Event::JoystickButtonP
         const auto stringView = magic_enum::enum_name(global_command->getPrefix());
         const std::string name_str(stringView);
         log("Button: " + std::to_string(button) + " pressed and command " + name_str + " generated");
-
     }
-
 }
 
 void GamepadController::attachButtonReleasedData(const sf::Event::JoystickButtonReleased *button_released,    LocalCommand *global_command){
     const unsigned int button = button_released->button;
-    global_command->setPrefix(getPrefixForButton(button));
-    global_command->setFloatValue(Constants::MIN_ANALOG_VALUE);
-    global_command->setBoolValue(false);
-    if (debug) {
-        const auto stringView = magic_enum::enum_name(global_command->getPrefix());
-        const std::string name_str(stringView);
-        log("Button: " + std::to_string(button) + " released for command " + name_str);
+    auto prefix = getPrefixForButton(button);
+    if (prefix == LocalCommandPrefix::SWITCH_OFF)
+    {
+        *this->completion_flag = true;
     }
+    else
+    {
+        global_command->setFloatValue(Constants::MIN_ANALOG_VALUE);
+        global_command->setBoolValue(false);
+        if (debug) {
+            const auto stringView = magic_enum::enum_name(global_command->getPrefix());
+            const std::string name_str(stringView);
+            log("Button: " + std::to_string(button) + " released for command " + name_str);
+        }
+    }
+    global_command->setPrefix(prefix);
 }
 
 LocalCommandPrefix GamepadController::getPrefixForAxis(const sf::Joystick::Axis axis) {
@@ -157,7 +172,12 @@ LocalCommandPrefix GamepadController::getPrefixForButton(unsigned int buttonCode
             global_command_prefix = LocalCommandPrefix::NOISE_DIGITAL;
         }
         else if (name == SWITCH_OFF) {
+            global_command_prefix = LocalCommandPrefix::SWITCH_OFF;
             *this->completion_flag = true;
+        }
+        else if (name == PAUSE) {
+            global_command_prefix = LocalCommandPrefix::PAUSE;
+            //*this->completion_flag = true;
         }
     }
     return global_command_prefix;

@@ -13,5 +13,6 @@
   "MOVEMENT_ANALOG": "X",
   "ROTATION_ANALOG": "Y",
   "BUZZER_ANALOG": "Z",
-  "SWITCH_OFF": ,
+  "SWITCH_OFF": 6,
+  "PAUSE": 7
 }

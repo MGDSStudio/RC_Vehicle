@@ -11,6 +11,7 @@ enum class LocalCommandPrefix {
 //FORWARD, BACKWARD, LEFT, RIGHT, NOISE, NO_DATA
 
 
+    , SWITCH_OFF, PAUSE
 };
 
 
