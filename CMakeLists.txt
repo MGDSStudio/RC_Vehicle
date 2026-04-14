@@ -91,7 +91,7 @@ add_executable(main src/main.cpp
         src/StickController.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
-target_link_libraries(main PRIVATE SFML::Graphics)
+target_link_libraries(main PRIVATE SFML::Graphics SFML::Window SFML::System)
 add_custom_command(TARGET main POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/data"
@@ -103,7 +103,7 @@ if(IS_RPI)
     # Ищем pigpio (она должна быть установлена в системе: sudo apt install pigpio)
     find_library(PIGPIO_LIB pigpio)
     if(PIGPIO_LIB)
-        target_link_libraries(main PRIVATE ${PIGPIO_LIB})
+        target_link_libraries(main PRIVATE ${PIGPIO_LIB} pthread rt)
         # Добавляем макрос для кода, чтобы можно было использовать #ifdef RPI_BUILD
         target_compile_definitions(main PRIVATE RPI_BUILD)
     else()
