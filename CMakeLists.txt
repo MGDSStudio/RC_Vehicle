@@ -21,20 +21,7 @@ if(EXISTS "/proc/device-tree/model")
 endif()
 
 # 2. Если это Pi, ищем и подключаем библиотеки
-if(IS_RPI)
-    message(STATUS "Configuring for Raspberry Pi...")
 
-    # Ищем pigpio (она должна быть установлена в системе: sudo apt install pigpio)
-    find_library(PIGPIO_LIB pigpio)
-
-    if(PIGPIO_LIB)
-        target_link_libraries(${PROJECT_NAME} PRIVATE ${PIGPIO_LIB})
-        # Добавляем макрос для кода, чтобы можно было использовать #ifdef RPI_BUILD
-        target_compile_definitions(${PROJECT_NAME} PRIVATE RPI_BUILD)
-    else()
-        message(WARNING "pigpio not found! GPIO features might not work.")
-    endif()
-endif()
 
 add_executable(main src/main.cpp
         src/gpio/Pin.h
@@ -111,4 +98,16 @@ add_custom_command(TARGET main POST_BUILD
         "$<TARGET_FILE_DIR:main>/data"
         COMMENT "Data copy in the output dir..."
 )
+if(IS_RPI)
+    message(STATUS "Configuring for Raspberry Pi...")
+    # Ищем pigpio (она должна быть установлена в системе: sudo apt install pigpio)
+    find_library(PIGPIO_LIB pigpio)
+    if(PIGPIO_LIB)
+        target_link_libraries(main PRIVATE ${PIGPIO_LIB})
+        # Добавляем макрос для кода, чтобы можно было использовать #ifdef RPI_BUILD
+        target_compile_definitions(main PRIVATE RPI_BUILD)
+    else()
+        message(WARNING "pigpio not found! GPIO features might not work.")
+    endif()
+endif()
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT main)
