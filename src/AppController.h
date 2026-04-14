@@ -1,0 +1,16 @@
+
+//
+// Created by gorod on 14.04.2026.
+//
+
+#ifndef CMAKESFMLPROJECT_APPCONTROLLER_H
+#define CMAKESFMLPROJECT_APPCONTROLLER_H
+
+
+class AppController {
+
+
+};
+
+
+#endif //CMAKESFMLPROJECT_APPCONTROLLER_H

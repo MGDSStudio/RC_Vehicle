@@ -13,11 +13,11 @@ int count = 0;
 constexpr int FRAME_TO_CHANGE_COLOR = 30;
 bool colorGreen = true;
 
+
 void updateColor(sf::CircleShape* circle_shape);
 
 int main()
 {
-	//testJsonParser();
 	MovementController movement_controller;
 	BuzzerController buzzerController;
 	GpioManager gpioManager;
@@ -26,8 +26,11 @@ int main()
 	window.setFramerateLimit(30);
 	shape.setFillColor( sf::Color::Green );
 	GamepadController gamepad_controller;
-	DebugLauncherBuzzerTest debug_launcher_buzzer_test;
-	while ( window.isOpen() )
+
+	bool toClose = false;
+	gamepad_controller.attachCompletionFlag(&toClose);
+
+	while (window.isOpen() || toClose )
 	{
 		while ( const std::optional event = window.pollEvent() )
 		{
@@ -40,18 +43,18 @@ int main()
 		}
 		movement_controller.update(1);
 		buzzerController.update(1);
-		debug_launcher_buzzer_test.update(1);
-		window.clear();
 		window.draw( shape );
 		window.display();
 		updateColor(&shape);
-
 	}
 	Logger::debug("Start to dispose");
 	buzzerController.complete();
 	gpioManager.complete();
 	LocalCommandsListenersObserverSingleton::getInstance().complete();
 	Logger::debug("Dispose completed");
+	if (toClose){
+
+	}
 }
 
 void updateColor(sf::CircleShape* shape) {
@@ -65,11 +68,7 @@ void updateColor(sf::CircleShape* shape) {
 			shape->setFillColor(sf::Color::Green);
 			colorGreen = true;
 		}
+		//window_must_be_redrawn = true;
 		count = 0;
 	}
 }
-
-/*void testJsonParser() {
-	PreferencesLoader preferences_loader;
-	preferences_loader.load();
-}*/

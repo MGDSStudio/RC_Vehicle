@@ -106,7 +106,7 @@ void GamepadController::attachAxisMovedData(const sf::Event::JoystickMoved *joys
     }
 }
 
-void GamepadController::attachButtonPressedData(const sf::Event::JoystickButtonPressed *button_pressed, LocalCommand *global_command) const {
+void GamepadController::attachButtonPressedData(const sf::Event::JoystickButtonPressed *button_pressed, LocalCommand *global_command) {
     unsigned int button = button_pressed->button;
     global_command->setPrefix(getPrefixForButton(button));
     global_command->setFloatValue(Constants::MAX_ANALOG_VALUE);
@@ -120,7 +120,7 @@ void GamepadController::attachButtonPressedData(const sf::Event::JoystickButtonP
 
 }
 
-void GamepadController::attachButtonReleasedData(const sf::Event::JoystickButtonReleased *button_released,    LocalCommand *global_command) const {
+void GamepadController::attachButtonReleasedData(const sf::Event::JoystickButtonReleased *button_released,    LocalCommand *global_command){
     const unsigned int button = button_released->button;
     global_command->setPrefix(getPrefixForButton(button));
     global_command->setFloatValue(Constants::MIN_ANALOG_VALUE);
@@ -149,12 +149,15 @@ LocalCommandPrefix GamepadController::getPrefixForAxis(const sf::Joystick::Axis 
     return global_command_prefix;
 }
 
-LocalCommandPrefix GamepadController::getPrefixForButton(unsigned int buttonCode) const {
+LocalCommandPrefix GamepadController::getPrefixForButton(unsigned int buttonCode) {
     const std::string name = gamepadData.getNameForButton(buttonCode);
     auto global_command_prefix = LocalCommandPrefix::NO_DATA;
     if (name != NO_DATA) {
         if (name == BUZZER_DIGITAL) {
             global_command_prefix = LocalCommandPrefix::NOISE_DIGITAL;
+        }
+        else if (name == SWITCH_OFF) {
+            *this->completion_flag = true;
         }
     }
     return global_command_prefix;

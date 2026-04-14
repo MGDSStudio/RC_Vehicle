@@ -11,7 +11,7 @@
 #include "IUpdateable.h"
 #include "gpio/SinglePinActor.h"
 #include "WheelActor.h"
-#include "WheelSignalsCalculatorSimple.h"
+#include "WheelsSignalsCalculatorSimple.h"
 #include "gpio/SoftwarePin.h"
 
 
@@ -35,7 +35,7 @@ private:
     WheelActor wheelForwardRight;
     WheelActor wheelBackwardLeft;
     WheelActor wheelBackwardRight;
-    WheelSignalsCalculatorSimple* wheelSignalsCalculator;
+    WheelsSignalsCalculatorSimple* wheelSignalsCalculator;
     inline static const float DEAD_ZONE_MIN = -0.075;
     inline static const float DEAD_ZONE_MAX = 0.075;
     //ActivationType actualActivationType = ActivationType::NO_DATA;

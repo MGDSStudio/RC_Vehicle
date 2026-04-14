@@ -91,9 +91,12 @@ add_executable(main src/main.cpp
         src/gamepad/InputKeys.h
         src/GeometrieLibrary.h
         src/gamepad/GamepadInputNames.h
-        src/WheelSignalsCalculatorSimple.cpp
-        src/WheelSignalsCalculatorSimple.h
+        src/WheelsSignalsCalculatorSimple.cpp
+        src/WheelsSignalsCalculatorSimple.h
         src/WheelsSignalsCalculatorAdvanced.cpp
+        src/AppController.cpp
+        src/AppController.h
+        src/WheelsSignalsCalculatorAdvanced.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

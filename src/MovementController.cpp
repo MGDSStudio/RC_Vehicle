@@ -41,7 +41,7 @@ MovementController::MovementController() {
     this->wheelBackwardRight.setHardwarePinBackward(new PinCommon(pinNumberRightRearBackward));
 
     //WheelActor* wheelForwardLeft, WheelActor* wheelForwardRight, WheelActor* wheelBackwardLeft, WheelActor* wheelBackwardRight
-    this->wheelSignalsCalculator = new WheelSignalsCalculatorSimple(&wheelForwardLeft, &wheelForwardRight, &wheelBackwardLeft, &wheelBackwardRight);
+    this->wheelSignalsCalculator = new WheelsSignalsCalculatorSimple(&wheelForwardLeft, &wheelForwardRight, &wheelBackwardLeft, &wheelBackwardRight);
 
     LocalCommandsListenersObserverSingleton::getInstance().subscribe(this);
 

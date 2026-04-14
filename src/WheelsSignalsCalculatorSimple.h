@@ -8,7 +8,7 @@
 
 #include "WheelActor.h"
 
-class WheelSignalsCalculatorSimple {
+class WheelsSignalsCalculatorSimple {
 
 
 enum class ActivationType{
@@ -16,7 +16,7 @@ enum class ActivationType{
 };
 
 public:
-    WheelSignalsCalculatorSimple(WheelActor* wheelForwardLeft, WheelActor* wheelForwardRight, WheelActor* wheelBackwardLeft, WheelActor* wheelBackwardRight) {
+    WheelsSignalsCalculatorSimple(WheelActor* wheelForwardLeft, WheelActor* wheelForwardRight, WheelActor* wheelBackwardLeft, WheelActor* wheelBackwardRight) {
         this->wheelForwardLeft = wheelForwardLeft;
         this->wheelForwardRight = wheelForwardRight;
         this->wheelBackwardLeft = wheelBackwardLeft;

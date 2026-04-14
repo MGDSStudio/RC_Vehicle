@@ -27,6 +27,7 @@ public:
         else if (button_code == gripperReleaseButton) return GRIPPER_RELEASE;
         else if (button_code == gripperUpButton) return GRIPPER_UP;
         else if (button_code == gripperDownButton) return GRIPPER_DOWN;
+        else if (button_code == switch_off) return SWITCH_OFF;
         else {
             return NO_DATA;
         }
@@ -48,20 +49,17 @@ private:
 
     void init();
 
-    //std::string getNameForButton(unsigned int button_code);
-
     int buzzerButton = 0;
     int gripperPressButton = -1;
     int gripperReleaseButton = -1;
     int gripperUpButton = -1;
     int gripperDownButton = -1;
+    int switch_off = -1;
     sf::Joystick::Axis xAxis = sf::Joystick::Axis::X;
     sf::Joystick::Axis yAxis = sf::Joystick::Axis::Y;
     sf::Joystick::Axis xAxisDigital = sf::Joystick::Axis::PovX;
     sf::Joystick::Axis yAxisDigital = sf::Joystick::Axis::PovY;
-
     sf::Joystick::Axis buzzerAxis = sf::Joystick::Axis::R;
-
 };
 
 
