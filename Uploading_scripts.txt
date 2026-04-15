@@ -1,5 +1,5 @@
-rm -rf /home/pi/Vehicle_controller
-git clone https://github.com/MGDSStudio/RC_Vehicle.git /home/pi/Vehicle_controller
+rm -rf Vehicle_controller
+git clone https://github.com/MGDSStudio/RC_Vehicle.git Vehicle_controller
 mkdir build && cd build
 cmake ..
 make -j2
