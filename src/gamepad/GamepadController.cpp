@@ -12,6 +12,7 @@
 
 
 GamepadController::GamepadController(){
+    sf::Joystick::update();
     const bool connected = sf::Joystick::isConnected(0);
     std::string text = "Gamepad ";
     if (connected) {

@@ -12,6 +12,10 @@ GpioManager::GpioManager() {
     if (gpioInitialise()<0){
         Logger::debug("Can not init GPIO");
         initSuccessfully = false;
+        System.exit(1);
+    }
+    else {
+        Logger::debug("GPIO was init successfully");
     }
 #endif
 }

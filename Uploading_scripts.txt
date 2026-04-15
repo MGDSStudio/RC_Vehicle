@@ -1,6 +1,10 @@
 rm -rf Vehicle_controller
+mkdir Vehicle_controller
 git clone https://github.com/MGDSStudio/RC_Vehicle.git Vehicle_controller
+cd Vehicle_controller
 mkdir build && cd build
-cmake ..
+cmake .. &&
 make -j2
-cp -r ../data build/bin
+cp -r ../data bin
+
+#cmake .. &&  make -j2

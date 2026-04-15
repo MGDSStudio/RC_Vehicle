@@ -15,8 +15,9 @@ PinCommon::PinCommon(const int number){
     this->debugTextPrefix = DEBUG_TEXT_PREFIX_COMMON+std::to_string(number);
     #ifdef IS_RPI
         gpioSetMode(hardwareNumber, PI_OUTPUT);
+        Logger::debug("PIN " + numberAsString+ " set as output ");
     #endif
-
+    //Logger::debug()
 }
 
 void PinCommon::setValue(const float value) {
@@ -25,6 +26,9 @@ void PinCommon::setValue(const float value) {
     #ifdef IS_RPI
         appliedForPi = true;
         gpioPWM(hardwarePin, mapped);
+        if (debug) {
+            Logger::debug("GPIo");
+        }
     #endif
     if (debug){
         const std::string text = " is set value: "+ std::to_string(value) + "; mapped: " + std::to_string(mapped) + " applied for PI: " + std::to_string(appliedForPi);
@@ -37,10 +41,12 @@ void PinCommon::enable(const bool flag) {
     #ifdef IS_RPI
         appliedForPi = true;
         if (flag){
-            gpioPWM(hardwarePin, ENABLED_PWM_VALUE);
+            gpioWrite(hardwarePin, PI_HIGH);
+            //gpioPWM(hardwarePin, ENABLED_PWM_VALUE);
         }
         else {
-            gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
+            gpioWrite(hardwarePin, PI_HIGH);
+            //gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
         }
     #endif
     if (debug){
