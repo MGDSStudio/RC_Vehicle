@@ -186,39 +186,3 @@ void GamepadController::log(const std::string &text) const{
         Logger::debug("Gamepad: " + text);
     }
 }
-
-
-/*
-void GamepadController::updateEventsQueue()
-{
-    while (!sfLevelEventsQueue.empty()) {
-            GlobalCommand* globalCommand = new GlobalCommand();
-            auto event = sfLevelEventsQueue.front();
-            if (const auto* button_pressed = event->getIf<sf::Event::JoystickButtonPressed>()) {
-                attachButtonPressedData(button_pressed, globalCommand);
-            }
-            else if (const auto* button_released = event->getIf<sf::Event::JoystickButtonReleased>()) {
-                attachButtonReleasedData(button_released, globalCommand);
-            }
-            else if (event->is<sf::Event::JoystickMoved>()) {
-                const auto* axisMoved = event->getIf<sf::Event::JoystickMoved>();
-                attachAxisMovedData(axisMoved, globalCommand);
-            }
-            else if (event->is<sf::Event::JoystickConnected>()) {
-                const auto* joystick_connected = event->getIf<sf::Event::JoystickConnected>();
-                const auto id = joystick_connected->joystickId;
-                log("Game pad ID: " + std::to_string(id) + " is connected");
-            }
-            else if (event->is<sf::Event::JoystickDisconnected>()) {
-                const auto* joystick_disconnected = event->getIf<sf::Event::JoystickDisconnected>();
-                const auto id = joystick_disconnected->joystickId;
-                log("Game pad ID: " + std::to_string(id) + " is disconnected");
-            }
-            if (globalCommand.getPrefix() != GlobalCommandPrefix::NO_DATA) {
-                GlobalCommandsListenersObserverSingleton::getInstance().broadcast(globalCommand);
-            }
-            delete globalCommand;
-            sfLevelEventsQueue.pop();
-        }
-}
-*/

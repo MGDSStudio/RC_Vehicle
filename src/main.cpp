@@ -10,6 +10,10 @@
 
 #include "DirectoriesValidator.h"
 
+#ifdef IS_RPI
+	#include <pigpio.h>
+#endif
+
 void testJsonParser();
 void mainLoop(sf::RenderWindow* window);
 
@@ -105,10 +109,17 @@ void updateColor(sf::CircleShape* shape) {
 		if (colorGreen == true) {
 			shape->setFillColor( sf::Color::Blue );
 			colorGreen = false;
+			#ifdef IS_RPI
+						gpioWrite(4, PI_HIGH);
+			#endif
+
 		}
 		else {
 			shape->setFillColor(sf::Color::Green);
 			colorGreen = true;
+			#ifdef IS_RPI
+						gpioWrite(4, PI_LOW);
+			#endif
 		}
 		//window_must_be_redrawn = true;
 		count = 0;
