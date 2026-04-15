@@ -5,9 +5,9 @@
 #include "PinCommon.h"
 
 #include "../Logger.h"
-#ifdef IS_RPI
+//#ifdef IS_RPI
     #include <pigpio.h>
-#endif
+//#endif
 
 PinCommon::PinCommon(const int number){
     this->hardwareNumber = number;
@@ -23,13 +23,13 @@ PinCommon::PinCommon(const int number){
 void PinCommon::setValue(const float value) {
     int mapped = mapForPwm(value);
     bool appliedForPi = false;
-    #ifdef IS_RPI
+   // #ifdef IS_RPI
         appliedForPi = true;
         gpioPWM(hardwarePin, mapped);
         if (debug) {
             Logger::debug("GPIo");
         }
-    #endif
+    //#endif
     if (debug){
         const std::string text = " is set value: "+ std::to_string(value) + "; mapped: " + std::to_string(mapped) + " applied for PI: " + std::to_string(appliedForPi);
         Logger::custom(debugTextPrefix, text);
@@ -38,7 +38,7 @@ void PinCommon::setValue(const float value) {
 
 void PinCommon::enable(const bool flag) {
     float appliedForPi = false;
-    #ifdef IS_RPI
+    //#ifdef IS_RPI
         appliedForPi = true;
         if (flag){
             gpioWrite(hardwarePin, PI_HIGH);
@@ -48,7 +48,7 @@ void PinCommon::enable(const bool flag) {
             gpioWrite(hardwarePin, PI_LOW);
             //gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
         }
-    #endif
+    //#endif
     if (debug){
         std::string text = "";// = DEBUG_TEXT_PREFIX + "set value: "+ std::to_string(value);
         if (flag) text.append(" enabled. Applied for PI: " + std::to_string(appliedForPi));
@@ -58,9 +58,9 @@ void PinCommon::enable(const bool flag) {
 }
 
 void PinCommon::complete(){
-    #ifdef IS_RPI
+    //#ifdef IS_RPI
         gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
-    #endif
+    //#endif
 }
 
 int PinCommon::mapForPwm(float fromMinusOneUpToOne){
