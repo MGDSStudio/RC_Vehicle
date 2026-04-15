@@ -7,8 +7,7 @@ sudo ./main >output.txt
 
 #cmake .. &&  make -j2
 #The next lines are called after a fail
-cd Vehicle_controller
-cd build
+cd Vehicle_controller && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j2
 
 
 #cmake -DCMAKE_BUILD_TYPE=Release ..

@@ -5,9 +5,9 @@
 #include "PinCommon.h"
 
 #include "../Logger.h"
-//#ifdef IS_RPI
+#ifdef IS_RPI
     #include <pigpio.h>
-//#endif
+#endif
 
 PinCommon::PinCommon(const int number){
     this->hardwareNumber = number;
