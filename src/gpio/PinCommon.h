@@ -23,7 +23,7 @@ protected:
     std::string numberAsString;
     const std::string DEBUG_TEXT_PREFIX_COMMON = "PIN ";
     std::string debugTextPrefix;
-    const bool debug = true;
+    const bool debug = false;
     const int ENABLED_PWM_VALUE = 0;
     const int DISABLED_PWM_VALUE = 255;
 

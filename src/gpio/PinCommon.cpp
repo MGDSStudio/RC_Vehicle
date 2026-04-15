@@ -26,9 +26,7 @@ void PinCommon::setValue(const float value) {
    // #ifdef IS_RPI
         appliedForPi = true;
         gpioPWM(hardwareNumber, mapped);
-        if (debug) {
-            Logger::debug("GPIo");
-        }
+        Logger::debug("GPIO value is " + std::to_string(mapped));
     //#endif
     if (debug){
         const std::string text = " is set value: "+ std::to_string(value) + "; mapped: " + std::to_string(mapped) + " applied for PI: " + std::to_string(appliedForPi);
@@ -41,13 +39,14 @@ void PinCommon::enable(const bool flag) {
     //#ifdef IS_RPI
         appliedForPi = true;
         if (flag){
-            gpioWrite(hardwareNumber, PI_HIGH);
-            //gpioPWM(hardwarePin, ENABLED_PWM_VALUE);
+            //gpioWrite(hardwareNumber, PI_HIGH);
+            gpioPWM(hardwareNumber, ENABLED_PWM_VALUE);
         }
         else {
-            gpioWrite(hardwareNumber, PI_LOW);
-            //gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
+           // gpioWrite(hardwareNumber, PI_LOW);
+            gpioPWM(hardwareNumber, DISABLED_PWM_VALUE);
         }
+        Logger::debug("GPIO " + std::to_string(this->hardwareNumber) + "was has changed value");
     //#endif
     if (debug){
         std::string text = "";// = DEBUG_TEXT_PREFIX + "set value: "+ std::to_string(value);

@@ -18,12 +18,12 @@ int framesCompleted = 0;
 constexpr int FRAME_TO_CHANGE_COLOR = 30;
 bool colorGreen = true;
 BuzzerController buzzerController;
-GpioManager gpioManager;
+
 GamepadController gamepad_controller;
 MovementController movement_controller;
 void updateColor(sf::CircleShape* circle_shape);
 
-void dispose();
+void dispose(GpioManager* gpioManager);
 
 int main()
 {
@@ -42,6 +42,7 @@ int main()
 
 void mainLoop(sf::RenderWindow* window)
 {
+	GpioManager gpioManager;
 	bool toClose = false;
 	gamepad_controller.attachCompletionFlag(&toClose);
 	sf::CircleShape shape( 100.f );
@@ -52,7 +53,7 @@ void mainLoop(sf::RenderWindow* window)
 		while ( const std::optional event = window->pollEvent()  )
 		{
 			if ( event->is<sf::Event::Closed>() || toClose) {
-				dispose();
+				dispose(&gpioManager);
 				window->close();
 				if (toClose)
 				{
@@ -88,11 +89,11 @@ void mainLoop(sf::RenderWindow* window)
 	}
 }
 
-void dispose()
+void dispose(GpioManager * gpioManager)
 {
 	Logger::debug("Start to dispose after " + std::to_string(framesCompleted) + " frames");
 	buzzerController.complete();
-	gpioManager.complete();
+	gpioManager->complete();
 	gamepad_controller.complete();
 	LocalCommandsListenersObserverSingleton::getInstance().complete();
 	Logger::debug("Dispose completed");

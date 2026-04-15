@@ -3,12 +3,13 @@
 //
 
 #include "GpioManager.h"
-#ifdef IS_RPI
+//#ifdef IS_RPI
     #include <pigpio.h>
-#endif
+//#endif
 
 GpioManager::GpioManager() {
-#ifdef IS_RPI
+    //#ifdef
+//IS_RPI
     if (gpioInitialise()<0){
         Logger::debug("Can not init GPIO");
         initSuccessfully = false;
@@ -17,7 +18,7 @@ GpioManager::GpioManager() {
     else {
         Logger::debug("GPIO was init successfully");
     }
-#endif
+//#endif
 }
 
 GpioManager::~GpioManager() {
