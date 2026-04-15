@@ -45,7 +45,7 @@ void PinCommon::enable(const bool flag) {
             //gpioPWM(hardwarePin, ENABLED_PWM_VALUE);
         }
         else {
-            gpioWrite(hardwarePin, PI_HIGH);
+            gpioWrite(hardwarePin, PI_LOW);
             //gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
         }
     #endif
