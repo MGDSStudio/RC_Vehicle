@@ -1,21 +1,17 @@
-rm -rf Vehicle_controller
-mkdir Vehicle_controller
-git clone https://github.com/MGDSStudio/RC_Vehicle.git Vehicle_controller
-cd Vehicle_controller
-mkdir build && cd build
-#cmake ..
-cmake --build . -j 1
-#cmake -DCMAKE_BUILD_TYPE=Release ..
-make -j2
+
+
+
+rm -rf Vehicle_controller && mkdir Vehicle_controller && git clone https://github.com/MGDSStudio/RC_Vehicle.git Vehicle_controller && cd Vehicle_controller && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j2
 cd bin
-sudo ./main
+sudo ./main >output.txt
 
 #cmake .. &&  make -j2
 #The next lines are called after a fail
 cd Vehicle_controller
-cd buildcd
-cmake --build . -j 1
+cd build
+
 
 #cmake -DCMAKE_BUILD_TYPE=Release ..
 
 #cmake ..
+cmake --build . -j 1

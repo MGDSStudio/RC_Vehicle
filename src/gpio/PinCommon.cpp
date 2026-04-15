@@ -25,7 +25,7 @@ void PinCommon::setValue(const float value) {
     bool appliedForPi = false;
    // #ifdef IS_RPI
         appliedForPi = true;
-        gpioPWM(hardwarePin, mapped);
+        gpioPWM(hardwareNumber, mapped);
         if (debug) {
             Logger::debug("GPIo");
         }
@@ -41,11 +41,11 @@ void PinCommon::enable(const bool flag) {
     //#ifdef IS_RPI
         appliedForPi = true;
         if (flag){
-            gpioWrite(hardwarePin, PI_HIGH);
+            gpioWrite(hardwareNumber, PI_HIGH);
             //gpioPWM(hardwarePin, ENABLED_PWM_VALUE);
         }
         else {
-            gpioWrite(hardwarePin, PI_LOW);
+            gpioWrite(hardwareNumber, PI_LOW);
             //gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
         }
     //#endif
@@ -59,7 +59,7 @@ void PinCommon::enable(const bool flag) {
 
 void PinCommon::complete(){
     //#ifdef IS_RPI
-        gpioPWM(hardwarePin, DISABLED_PWM_VALUE);
+        gpioPWM(hardwareNumber, DISABLED_PWM_VALUE);
     //#endif
 }
 
