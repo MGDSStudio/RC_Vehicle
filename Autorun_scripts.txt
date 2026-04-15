@@ -1,0 +1,21 @@
+sudo raspi-config nonint do_i2c 0      # Enables I2C
+sudo raspi-config nonint do_spi 0      # Enables SPI
+sudo raspi-config nonint do_serial 0   # Enables Serial/UART
+
+chmod +x /home/pi/path/to/Vehicle_controller/build/bin/main
+sudo visudo
+pi ALL=(ALL) NOPASSWD: /home/pi/path/to/Vehicle_controller/build/bin/main
+mkdir -p ~/.config/autostart
+nano ~/.config/autostart/vehicle_controller.desktop
+
+#Next lines must be used if the window can not be launched
+#nano ~/.config/autostart/vehicle_controller.desktop
+#Exec=bash -c "xhost +local:root; sudo /home/pi/path/to/Vehicle_controller/your_binary"
+
+#file content
+[Desktop Entry]
+Type=Application
+Name=VehicleController
+Exec=/home/pi/path/to/Vehicle_controller/build/bin/main
+Terminal=true
+
