@@ -8,71 +8,89 @@
 #include "gpio/GpioManager.h"
 #include <cstdlib> // для функции system()
 
+#include "DirectoriesValidator.h"
+
 void testJsonParser();
+void mainLoop(sf::RenderWindow* window);
 
 int count = 0;
+int framesCompleted = 0;
 constexpr int FRAME_TO_CHANGE_COLOR = 30;
 bool colorGreen = true;
 BuzzerController buzzerController;
 GpioManager gpioManager;
 GamepadController gamepad_controller;
-
+MovementController movement_controller;
 void updateColor(sf::CircleShape* circle_shape);
 
 void dispose();
 
 int main()
 {
-	MovementController movement_controller;
-
-
 	sf::RenderWindow window( sf::VideoMode( { 200, 200 } ), "RC Vehicle controller V0.1" );
-	sf::CircleShape shape( 100.f );
-	window.setFramerateLimit(30);
-	shape.setFillColor( sf::Color::Green );
 
+	window.setFramerateLimit(30);
+
+	DirectoriesValidator directories_validator;
+	bool validated = directories_validator.validate();
+	if (validated)
+	{
+
+		mainLoop(&window);
+	}
+}
+
+void mainLoop(sf::RenderWindow* window)
+{
 	bool toClose = false;
 	gamepad_controller.attachCompletionFlag(&toClose);
-	while (window.isOpen() || toClose )
+	sf::CircleShape shape( 100.f );
+	shape.setFillColor( sf::Color::Green );
+	bool mutGamepadPickedUpCommand = false;
+	while (window->isOpen() || toClose )
 	{
-		while ( const std::optional event = window.pollEvent()  )
+		while ( const std::optional event = window->pollEvent()  )
 		{
 			if ( event->is<sf::Event::Closed>() || toClose) {
 				dispose();
-				window.close();
+				window->close();
 				if (toClose)
 				{
-					system("sudo shutdown -h now");
+					try
+					{
+						system("sudo shutdown -h now");
+					}
+					catch (sf::Exception exception)
+					{
+						Logger::debug("Can not switch off this PC. Maybe the app runs not on a Raspberry PI");
+						Logger::debug(exception.what());
+					}
 				}
 			}
-			else if (!gamepad_controller.attachCommand(event) ) {
-				
-			}
-			/*if (event->is<sf::Event::KeyPressed>()) {
-				//const auto* button_pressed = event->getIf<sf::Event::JoystickButtonPressed>()
-				const auto* button_pressed = event->getIf<sf::Event::KeyPressed>();
-				if (button_pressed->code == sf::Keyboard::Key::Backspace)
+			else
+			{
+				mutGamepadPickedUpCommand = gamepad_controller.attachCommand(event);
+				if (!mutGamepadPickedUpCommand ) {
+
+				}
+				else
 				{
-					Logger::debug("Try to close");
-					toClose = true;
+
 				}
-			}*/
+			}
 		}
 		movement_controller.update(1);
 		buzzerController.update(1);
-		window.draw( shape );
-		window.display();
+		window->draw( shape );
+		window->display();
 		updateColor(&shape);
-	}
-
-	if (toClose){
-
+		framesCompleted++;
 	}
 }
 
 void dispose()
 {
-	Logger::debug("Start to dispose");
+	Logger::debug("Start to dispose after " + std::to_string(framesCompleted) + " frames");
 	buzzerController.complete();
 	gpioManager.complete();
 	gamepad_controller.complete();

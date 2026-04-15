@@ -13,7 +13,7 @@
 
 GamepadController::GamepadController(){
     const bool connected = sf::Joystick::isConnected(0);
-    std::string text = "gamepad ";
+    std::string text = "Gamepad ";
     if (connected) {
         const auto identificationStruct = sf::Joystick::Identification();
         const auto name =  identificationStruct.name;
@@ -23,9 +23,14 @@ GamepadController::GamepadController(){
         text+=(" connected successfully");
     }
     else {
-        text+= "can not connected";
+        text+= " not found";
     }
     Logger::debug(text);
+}
+
+GamepadController::~GamepadController()
+{
+
 }
 
 bool GamepadController::attachCommand(const std::optional<sf::Event> &event) {
@@ -49,14 +54,6 @@ bool GamepadController::attachCommand(const std::optional<sf::Event> &event) {
         eventPickedUp = Constants::EVENT_PICKED_UP;
         sfLevelEventsQueue.push(event);
     }
-    /*if (event->is<sf::Event::KeyPressed>()) {
-        const auto* button_pressed = event->getIf<sf::Event::KeyPressed>();
-        if (button_pressed->code == sf::Keyboard::Key::Backspace)
-        {
-            Logger::debug("Try to close");
-            *this->completion_flag = true;
-        }
-    }*/
     if (!sfLevelEventsQueue.empty()){
         updateEventsQueue();
     }

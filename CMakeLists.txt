@@ -89,6 +89,10 @@ add_executable(main src/main.cpp
         src/MechanicalConstants.h
         src/StickController.cpp
         src/StickController.h
+        src/DirectoriesValidator.cpp
+        src/DirectoriesValidator.h
+        src/KeyboardController.cpp
+        src/KeyboardController.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics SFML::Window SFML::System)

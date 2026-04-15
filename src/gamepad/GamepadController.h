@@ -23,6 +23,7 @@
 class GamepadController final : public IUpdateable {
 public:
     GamepadController();
+    ~GamepadController() override;
 
     bool attachCommand(const std::optional<sf::Event> &event);
     void update(float tpf) override;
