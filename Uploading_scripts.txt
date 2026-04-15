@@ -3,8 +3,19 @@ mkdir Vehicle_controller
 git clone https://github.com/MGDSStudio/RC_Vehicle.git Vehicle_controller
 cd Vehicle_controller
 mkdir build && cd build
-cmake .. &&
+#cmake ..
+cmake --build . -j 1
+#cmake -DCMAKE_BUILD_TYPE=Release ..
 make -j2
-cp -r ../data bin
+cd bin
+sudo ./main
 
 #cmake .. &&  make -j2
+#The next lines are called after a fail
+cd Vehicle_controller
+cd buildcd
+cmake --build . -j 1
+
+#cmake -DCMAKE_BUILD_TYPE=Release ..
+
+#cmake ..
