@@ -14,3 +14,8 @@ cd Vehicle_controller && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
 #cmake ..
 cmake --build . -j 1
+
+
+cd Vehicle_controller && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j2
+
+cd Vehicle_controller && cd build && cd bin && sudo ./main
